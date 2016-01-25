@@ -1,0 +1,19 @@
+#game-board {
+  display: flex;
+  flex-direction: column;
+
+  width: $board-width;
+  max-width: 700px;
+
+  margin: $board-card-gutter auto;
+  font-family: Helvetica, Arial, sans-serif;
+
+  .row {
+    display: flex;
+    align-items: center;
+
+    & + .row {
+      margin-top: $board-card-gutter;
+    }
+  }
+}

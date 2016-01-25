@@ -1,38 +1,48 @@
 const constants = require('./constants')
 const util = require('./util')
 
+const gameState = require('./gameState')
+
 const SuspectCard = require('./classes/SuspectCard')
 const EvidenceCard = require('./classes/EvidenceCard')
-// const Board = require('./classes/Board')
+const Killer = require('./classes/Killer')
+const Inspector = require('./classes/Inspector')
+const Board = require('./classes/Board')
 // const Deck = require('./classes/Deck')
 
 const game = (() => {
-  let _cards = {}
-  // let _players = {}
-  // let _turn = 1
-
   return {
     init () {
       this.initCards()
+      this.initPlayers()
+
+      this.start()
     },
 
     initCards () {
       let cardNames = util.shuffle(constants.CARD_NAMES)
 
-      let suspectCards = util.chunk(cardNames).map((row, rowIndex) => {
-        return row.map((name, nameIndex) => {
-          return new SuspectCard(name, rowIndex, nameIndex)
+      let suspectCards = util.chunk(cardNames).map(row => {
+        return row.map(name => {
+          return new SuspectCard(name)
         })
       })
 
-      let evidenceCards = util.shuffle(cardNames).map((name) => new EvidenceCard(name))
+      let evidenceCards = util.shuffle(cardNames).map(name => new EvidenceCard(name))
 
-      _cards.board = suspectCards // TODO: new Board()
-      _cards.deck = evidenceCards // TODO: new Deck()
+      gameState.setBoard(new Board(suspectCards))
+      gameState.setDeck(evidenceCards) // TODO: new Deck()
+    },
+
+    initPlayers () {
+      gameState.setKiller(new Killer())
+      gameState.setInspector(new Inspector())
     },
 
     start () {
+      // TODO
 
+      gameState.nextTurn()
     }
   }
 })()

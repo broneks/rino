@@ -60,11 +60,11 @@ class Player {
     this._identityCard = evidenceCard
   }
 
-  shiftCards (row, column, direction) {
-    if (!this.isTurnToPlay()) return
-
-    // pass
-  }
+  // shiftCards (row, column, direction) {
+  //   if (!this.isTurnToPlay()) return
+  //
+  //   // pass
+  // }
 }
 
 module.exports = Player

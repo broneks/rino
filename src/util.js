@@ -25,5 +25,36 @@ module.exports = {
     }
 
     return chunked
+  },
+
+  addClass (node, classNames) {
+    if (node) {
+      let nodeArray = Array.from(node) || [node]
+      let classNamesArray = classNames.split(' ')
+
+      nodeArray.forEach(n => {
+        classNamesArray.forEach(className => n.classList.add(className))
+      })
+    }
+
+    return this
   }
+
+  // clearNodeChildren (node) {
+  //   while (node.firstChild) {
+  //     node.removeChild(node.firstChild)
+  //   }
+  //
+  //   return this
+  // },
+  //
+  // appendNode (parent, child) {
+  //   if (Array.isArray(child)) {
+  //     child.forEach((childNode) => parent.appendChild(childNode))
+  //   } else {
+  //     parent.appendChild(child)
+  //   }
+  //
+  //   return this
+  // }
 }

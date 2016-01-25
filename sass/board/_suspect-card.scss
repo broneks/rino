@@ -1,0 +1,38 @@
+.suspect-card {
+  height: $board-card-height;
+  text-align: center;
+  cursor: pointer;
+  border-radius: 5%;
+  opacity: 1;
+  transition: transform 0.2s ease-in-out, opacity 1.9s ease;
+  transform: translate3d(0, 0, 0); // enable hardware acceleration
+  backface-visibility: hidden; // enable hardware acceleration
+
+  background-color: $board-card-color;
+
+  &.exonerated {
+    background-color: $board-card-exonerated-color;
+  }
+
+  &.arrested {
+    background-color: $board-card-arrested-color;
+  }
+
+  &.deceased {
+    background-color: $board-card-deceased-color;
+  }
+
+  &.fade-out {
+    opacity: 0;
+  }
+
+  & + .suspect-card {
+    margin-left: $board-card-gutter;
+  }
+
+  &-name {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+}

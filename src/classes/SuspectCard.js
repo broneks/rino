@@ -1,19 +1,14 @@
 const constants = require('../constants')
 
 const Card = require('./base/Card')
-const Position = require('./base/Position')
 
 class SuspectCard extends Card {
-  constructor (name, x, y) {
+  constructor (name) {
     super(constants.CARD_TYPE.suspect, name)
 
-    this._position = new Position(x, y)
     this._isDeceased = false
     this._isExonerated = false
-  }
-
-  getPosition () {
-    return this._position
+    this._isArrested = false
   }
 
   isExonerated () {
@@ -24,16 +19,22 @@ class SuspectCard extends Card {
     return this._isDeceased
   }
 
+  isArrested () {
+    return this._isArrested
+  }
+
   exonerate () {
-    this._isExonerated = true
+    if (!this._isDeceased) this._isExonerated = true
   }
 
   kill () {
-    this._isDeceased = true
+    if (!this._isDeceased) this._isDeceased = true
   }
 
-  setPosition (x, y) {
-    this._position = this._position.set(x, y)
+  arrest () {
+    if (!this._isDeceased && !this._isExonerated) this._isArrested = true
+
+    // TODO
   }
 
   setOutOfPlay () {

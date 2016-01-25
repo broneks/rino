@@ -1,0 +1,58 @@
+.board-arrow {
+  width: 0;
+  height: 0;
+  cursor: pointer;
+  pointer-events: visible;
+  opacity: 0.1;
+  transition: opacity 0.4s ease-in-out;
+
+  &:focus,
+  &:hover {
+    opacity: 1;
+  }
+
+  &.left-arrow {
+    margin: 0 $board-card-gutter;
+    border-top: $board-arrow-height solid transparent;
+    border-bottom: $board-arrow-height solid transparent;
+    border-right: $board-arrow-height solid $board-arrow-color;
+  }
+
+  &.right-arrow {
+    margin: 0 $board-card-gutter;
+    border-top: $board-arrow-height solid transparent;
+    border-bottom: $board-arrow-height solid transparent;
+    border-left: $board-arrow-height solid $board-arrow-color;
+  }
+
+  &.up-arrow {
+    margin: $board-card-gutter 0;
+    border-left: $board-arrow-height solid transparent;
+    border-right: $board-arrow-height solid transparent;
+    border-bottom: $board-arrow-height solid $board-arrow-color;
+  }
+
+  &.down-arrow {
+    margin: $board-card-gutter 0;
+    border-left: $board-arrow-height solid transparent;
+    border-right: $board-arrow-height solid transparent;
+    border-top: $board-arrow-height solid $board-arrow-color;
+  }
+}
+
+.board-arrow-row {
+  display: flex;
+  margin: $board-card-gutter calc(#{$board-card-gutter} + #{$board-arrow-height});
+
+  .board-arrow-wrapper {
+    flex-grow: 1;
+
+    & + .board-arrow-wrapper {
+      margin-left: $board-card-gutter;
+    }
+
+    .board-arrow {
+      margin: 0 auto;
+    }
+  }
+}
