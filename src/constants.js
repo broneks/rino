@@ -17,7 +17,8 @@ const CARD_NAMES = [
 ]
 
 const DOM = {
-  board: document.getElementById('game-board')
+  board: document.getElementById('game-board'),
+  deck: document.getElementById('game-deck')
 }
 
 Object.freeze(PLAYER_TYPE)

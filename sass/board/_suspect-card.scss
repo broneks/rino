@@ -1,8 +1,9 @@
 .suspect-card {
-  height: $board-card-height;
+  height: $card-height;
   text-align: center;
   cursor: pointer;
-  border-radius: 5%;
+  border: 1px solid $card-border-color;
+  border-radius: $card-radius;
   opacity: 1;
   transition: transform 0.2s ease-in-out, opacity 1.9s ease;
   transform: translate3d(0, 0, 0); // enable hardware acceleration
