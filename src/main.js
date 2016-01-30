@@ -1,3 +1,3 @@
-const game = require('./game');
+const game = require('./game')
 
-game.init();
+game.init()

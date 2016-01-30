@@ -1,25 +1,25 @@
-const constants = require('../constants');
+const constants = require('../constants')
 
-const Player = require('./base/Player');
+const Player = require('./base/Player')
 
-let instance = null;
+let instance = null
 
 class Inspector extends Player {
-  constructor() {
-    super(PLAYER_TYPE.inspector, 4);
+  constructor () {
+    super(constants.PLAYER_TYPE.inspector, 4)
 
     // singleton
-    if (!instance) instance = this;
-    return instance;
+    if (!instance) instance = this
+    return instance
   }
 
-  arrest() {
+  arrest () {
     // pass
   }
 
-  exonerate() {
+  exonerate () {
     // pass
   }
 }
 
-module.exports = Inspector;
+module.exports = Inspector

@@ -1,25 +1,25 @@
-const constants = require('../constants');
+const constants = require('../constants')
 
-const Player = require('./base/Player');
+const Player = require('./base/Player')
 
-let instance = null;
+let instance = null
 
 class Killer extends Player {
-  constructor() {
-    super(constants.PLAYER_TYPE.killer, 1);
+  constructor () {
+    super(constants.PLAYER_TYPE.killer, 1)
 
     // singleton
-    if (!instance) instance = this;
-    return instance;
+    if (!instance) instance = this
+    return instance
   }
 
-  kill() {
+  kill () {
     // pass
   }
 
-  disguiseIdentity() {
+  disguiseIdentity () {
     // pass
   }
 }
 
-module.exports = Killer;
+module.exports = Killer

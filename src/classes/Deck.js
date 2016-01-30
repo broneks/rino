@@ -1,13 +1,13 @@
-let instance = null;
+let instance = null
 
 class Deck {
-  constructor() {
+  constructor () {
     // pass
 
     // singleton
-    if (!instance) instance = this;
-    return instance;
+    if (!instance) instance = this
+    return instance
   }
 }
 
-module.exports = Deck;
+module.exports = Deck

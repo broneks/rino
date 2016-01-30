@@ -1,13 +1,13 @@
-let instance = null;
+let instance = null
 
 class Board {
-  constructor() {
-    this.time = new Date();
+  constructor () {
+    this.time = new Date()
 
     // singleton
-    if (!instance) instance = this;
-    return instance;
+    if (!instance) instance = this
+    return instance
   }
 }
 
-module.exports = Board;
+module.exports = Board

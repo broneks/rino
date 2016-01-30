@@ -1,45 +1,45 @@
-const constants = require('../../constants');
+const constants = require('../../constants')
 
-let previousShift = null;
+// let previousShift = null
 
 class Player {
-  constructor(type, handMax) {
-    this._isTurnToPlay = false;
-    this._hasWon = false;
-    this._type = constants.PLAYER_TYPE[type];
-    this._identityCard = null;
-    this._hand = [];
-    this._handMax = handMax;
+  constructor (type, handMax) {
+    this._isTurnToPlay = false
+    this._hasWon = false
+    this._type = constants.PLAYER_TYPE[type]
+    this._identityCard = null
+    this._hand = []
+    this._handMax = handMax
   }
 
-  isTurnToPlay() {
-    return this._isTurnToPlay;
+  isTurnToPlay () {
+    return this._isTurnToPlay
   }
 
-  getType() {
-    return this._type;
+  getType () {
+    return this._type
   }
 
-  getIdentityCard() {
-    return this._identityCard;
+  getIdentityCard () {
+    return this._identityCard
   }
 
-  turnToPlay() {
-    this._isTurnToPlay = true;
+  turnToPlay () {
+    this._isTurnToPlay = true
   }
 
-  turnIsOver() {
-    this._isTurnToPlay = false;
+  turnIsOver () {
+    this._isTurnToPlay = false
   }
 
-  hasWon() {
-    this._hasWon = true;
+  hasWon () {
+    this._hasWon = true
   }
 
-  pickUp(evidenceCard) {
-    if (!this.isTurnToPlay()) return;
+  pickUp (evidenceCard) {
+    if (!this.isTurnToPlay()) return
 
-    this._hand.push(evidenceCard);
+    this._hand.push(evidenceCard)
 
     if (this._hand.length < this._handMax) {
       // keep picking up
@@ -48,23 +48,23 @@ class Player {
     }
   }
 
-  setIdentityCard(evidenceCard) {
-    if (!this.isTurnToPlay()) return;
+  setIdentityCard (evidenceCard) {
+    if (!this.isTurnToPlay()) return
 
-    previousIdentity = this.getIdentityCard();
+    let previousIdentity = this.getIdentityCard()
 
     if (previousIdentity) {
-      previousIdentity.setOutOfPlay();
+      previousIdentity.setOutOfPlay()
     }
 
-    this._identityCard = evidenceCard;
+    this._identityCard = evidenceCard
   }
 
-  shiftCards(row, column, direction) {
-    if (!this.isTurnToPlay()) return;
+  shiftCards (row, column, direction) {
+    if (!this.isTurnToPlay()) return
 
     // pass
   }
 }
 
-module.exports = Player;
+module.exports = Player
