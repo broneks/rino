@@ -36,3 +36,6 @@ node_modules
 # project specific
 #
 dist
+
+# todo list
+todo.md
