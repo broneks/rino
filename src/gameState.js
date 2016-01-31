@@ -1,3 +1,5 @@
+const constants = require('./constants')
+const util = require('./util')
 
 const gameState = (() => {
   let _cards = {}
@@ -21,7 +23,7 @@ const gameState = (() => {
       return _players.killer
     },
 
-    getWhoseTurnToPlay () {
+    getCurrentPlayer () {
       if (_turn % 2 === 0) {
         return _players.inspector
       }
@@ -43,6 +45,25 @@ const gameState = (() => {
 
     setKiller (newKiller) {
       _players.killer = newKiller
+    },
+
+    setMoveDetails (description) {
+      if (!description) return
+
+      let moveDetails = {
+        description,
+        player: this.getCurrentPlayer().getType()
+      }
+
+      // returns a function that, when called, renders the move details
+      return () => {
+        constants.DOM.moveDetails.className = moveDetails.player
+        constants.DOM.moveDetails.textContent = `The ${
+          util.capitalizeFirstLetter(moveDetails.player)
+        } ${
+          moveDetails.description
+        }`
+      }
     },
 
     nextTurn () {
