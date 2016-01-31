@@ -3,10 +3,10 @@ const ReactDOM = require('react-dom')
 
 const gameState = require('../gameState')
 const constants = require('../constants')
-// const util = require('../util')
 
 const BoardDisplay = require('../components/BoardDisplay')
 
+let moveDetails = null
 let instance = null
 
 class Board {
@@ -21,7 +21,7 @@ class Board {
   }
 
   onSuspectClick (event) {
-    let player = gameState.getWhoseTurnToPlay()
+    let player = gameState.getCurrentPlayer()
     let target
 
     if (event.target.dataset.suspect) {
@@ -31,10 +31,12 @@ class Board {
     }
 
     let card = this._cards[target.dataset.x][target.dataset.y]
+    let cardName = card.getName()
 
     switch (player.getType()) {
       case constants.PLAYER_TYPE.killer:
         player.kill(card)
+        moveDetails = gameState.setMoveDetails(`killed ${ cardName }`)
         break
 
       case constants.PLAYER_TYPE.inspector:
@@ -43,24 +45,29 @@ class Board {
         if (card.isExonerated()) return
 
         player.arrest(card)
+        moveDetails = gameState.setMoveDetails(`arrested ${ cardName }`)
         break
     }
 
     this.preRender()
-    // gameState.nextTurn()
   }
 
   onArrowClick (event) {
     let target = event.target
 
-    if (target.dataset.row) {
-      this.shiftRow(target.dataset.row, target.dataset.direction)
-    } else if (target.dataset.column) {
-      this.shiftColumn(target.dataset.column, target.dataset.direction)
+    let row = target.dataset.row
+    let column = target.dataset.column
+    let direction = target.dataset.direction
+
+    if (row) {
+      this.shiftRow(row, direction)
+      moveDetails = gameState.setMoveDetails(`shifted row ${ parseInt(row, 10) + 1 } ${ direction }`)
+    } else if (column) {
+      this.shiftColumn(column, direction)
+      moveDetails = gameState.setMoveDetails(`shifted column ${ parseInt(column, 10) + 1 } ${ direction }`)
     }
 
     this.preRender()
-    // gameState.nextTurn()
   }
 
   shiftRow (rowIndex, direction) {
@@ -99,24 +106,6 @@ class Board {
     })
   }
 
-  // animateRemoval (rowOrColumn, index, callback = constants.NOOP) {
-  //   setTimeout(() => {
-  //     callback()
-  //     this.render()
-  //     gameState.nextTurn()
-  //   }, 2000)
-  //
-  //   switch (rowOrColumn) {
-  //     case 'row':
-  //       util.addClass(document.querySelectorAll(`.suspect-card[data-x='${ index }']`), 'fade-out')
-  //       break
-  //
-  //     case 'column':
-  //       util.addClass(document.querySelectorAll(`.suspect-card[data-y='${ index }']`), 'fade-out')
-  //       break
-  //   }
-  // }
-
   preRender () {
     // remove row if every suspect is deceased
     this._cards.some((row, rowIndex) => {
@@ -152,6 +141,8 @@ class Board {
         onArrowClick={this.onArrowClick.bind(this)} />,
       constants.DOM.board
     )
+
+    if (moveDetails) moveDetails()
   }
 }
 

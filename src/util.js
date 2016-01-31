@@ -38,23 +38,11 @@ module.exports = {
     }
 
     return this
-  }
+  },
 
-  // clearNodeChildren (node) {
-  //   while (node.firstChild) {
-  //     node.removeChild(node.firstChild)
-  //   }
-  //
-  //   return this
-  // },
-  //
-  // appendNode (parent, child) {
-  //   if (Array.isArray(child)) {
-  //     child.forEach((childNode) => parent.appendChild(childNode))
-  //   } else {
-  //     parent.appendChild(child)
-  //   }
-  //
-  //   return this
-  // }
+  capitalizeFirstLetter (str) {
+    if (str && typeof str === 'string') {
+      return str.charAt(0).toUpperCase() + str.slice(1)
+    }
+  }
 }
