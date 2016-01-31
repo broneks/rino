@@ -21,7 +21,7 @@ class Deck {
   }
 
   cardClick (event) {
-    let player = gameState.getWhoseTurnToPlay()
+    let player = gameState.getCurrentPlayer()
 
     if (!player.canPickUp()) return
 
