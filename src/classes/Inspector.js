@@ -13,12 +13,14 @@ class Inspector extends Player {
     return instance
   }
 
-  arrest () {
-    // pass
+  arrest (suspect) {
+    if (suspect) suspect.arrest()
   }
 
-  exonerate () {
-    // pass
+  exonerate (suspect) {
+    if (suspect) suspect.exonerate()
+
+    // TODO
   }
 }
 

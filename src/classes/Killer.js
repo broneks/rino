@@ -13,8 +13,8 @@ class Killer extends Player {
     return instance
   }
 
-  kill () {
-    // pass
+  kill (suspect) {
+    if (suspect) suspect.kill()
   }
 
   disguiseIdentity () {

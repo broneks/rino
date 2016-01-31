@@ -46,6 +46,15 @@ gulp.task('standard', () => {
     .pipe(standard.reporter('default'))
 })
 
+gulp.task('scripts', () => {
+  gulp.src('src/main.js')
+    .pipe(plumber())
+    .pipe(webpack(webpackConfig))
+    // .pipe(uglify())
+    .pipe(gulp.dest('dist'))
+    .pipe(livereload())
+})
+
 gulp.task('styles', () => {
   gulp.src('sass/main.scss')
     .pipe(plumber())
@@ -59,15 +68,6 @@ gulp.task('styles', () => {
     .pipe(gulp.dest('dist/css'))
     .pipe(livereload())
 });
-
-gulp.task('scripts', () => {
-  gulp.src('src/main.js')
-    .pipe(plumber())
-    .pipe(webpack(webpackConfig))
-    .pipe(uglify())
-    .pipe(gulp.dest('dist'))
-    .pipe(livereload())
-})
 
 gulp.task('server', (done) => {
   http.createServer(
