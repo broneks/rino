@@ -1,0 +1,43 @@
+#game-deck {
+  border: 1px solid pink;
+
+  position: relative;
+  perspective: 100vmax;
+  perspective-origin: center center;
+  transform-style: preserve-3d;
+  min-height: $card-height;
+
+  .game-deck-wrapper {
+    &.is-empty {
+      border: 1px dashed $card-border-color;
+      border-radius: $card-radius;
+      height: $card-height;
+      width: 100px;
+      text-align: center;
+      font-style: italic;
+
+      .message {
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+    }
+  }
+
+  .deck-card {
+    position: absolute;
+    display: block;
+    background-color: $deck-card-back-color;
+    height: $card-height;
+    width: 100px;
+    border: 1px solid $card-border-color;
+    border-radius: $card-radius;
+    cursor: pointer;
+
+    &-name {
+      position: relative;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+  }
+}

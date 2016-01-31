@@ -1,3 +1,9 @@
+//
+// General
+//
+$card-height: 6em;
+$card-radius: 5%;
+$card-border-color: silver;
 
 //
 // Board
@@ -5,11 +11,16 @@
 $board-width: 75%;
 
 $board-card-gutter: 1.5%;
-$board-card-height: 6rem;
 $board-card-color: aquamarine;
 $board-card-exonerated-color: pink;
 $board-card-arrested-color: blue;
 $board-card-deceased-color: red;
 
-$board-arrow-height: $board-card-height / 6;
+$board-arrow-height: $card-height / 6;
 $board-arrow-color: blue;
+
+//
+// Deck
+//
+$deck-card-back-color: orange;
+$deck-card-color: honeydew;

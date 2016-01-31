@@ -5,10 +5,12 @@ const gameState = require('./gameState')
 
 const SuspectCard = require('./classes/SuspectCard')
 const EvidenceCard = require('./classes/EvidenceCard')
+
 const Killer = require('./classes/Killer')
 const Inspector = require('./classes/Inspector')
+
 const Board = require('./classes/Board')
-// const Deck = require('./classes/Deck')
+const Deck = require('./classes/Deck')
 
 const game = (() => {
   return {
@@ -31,7 +33,7 @@ const game = (() => {
       let evidenceCards = util.shuffle(cardNames).map(name => new EvidenceCard(name))
 
       gameState.setBoard(new Board(suspectCards))
-      gameState.setDeck(evidenceCards) // TODO: new Deck()
+      gameState.setDeck(new Deck(evidenceCards))
     },
 
     initPlayers () {

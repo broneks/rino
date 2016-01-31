@@ -36,16 +36,14 @@ class Player {
     this._hasWon = true
   }
 
+  canPickUp () {
+    return this._hand.length < this._handMax
+  }
+
   pickUp (evidenceCard) {
     if (!this.isTurnToPlay()) return
 
     this._hand.push(evidenceCard)
-
-    if (this._hand.length < this._handMax) {
-      // keep picking up
-    } else {
-      // drop card
-    }
   }
 
   setIdentityCard (evidenceCard) {
