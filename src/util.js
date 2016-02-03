@@ -1,4 +1,13 @@
 module.exports = {
+  privateMap () {
+    let weakMap = new WeakMap()
+
+    return (obj) => {
+      if (!weakMap.has(obj)) weakMap.set(obj, {})
+      return weakMap.get(obj)
+    }
+  },
+
   shuffle (array = []) {
     let currentIndex = array.length
     let randomIndex

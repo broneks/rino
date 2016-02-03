@@ -1,20 +1,24 @@
+const util = require('../../util')
+
+let internal = util.privateMap()
+
 class Card {
   constructor (type, name) {
-    this._type = type
-    this._name = name
-    this._isOutOfPlay = false
+    internal(this).type = type
+    internal(this).name = name
+    internal(this).isOutOfPlay = false
   }
 
   getType () {
-    return this._type
+    return internal(this).type
   }
 
   getName () {
-    return this._name
+    return internal(this).name
   }
 
   setOutOfPlay () {
-    this._isOutOfPlay = true
+    internal(this).isOutOfPlay = true
   }
 }
 

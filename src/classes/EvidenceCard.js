@@ -1,34 +1,37 @@
+const util = require('../util')
 const constants = require('../constants')
 
 const Card = require('./base/Card')
+
+let internal = util.privateMap()
 
 class EvidenceCard extends Card {
   constructor (name) {
     super(constants.CARD_TYPE.evidence, name)
 
-    this._isInHand = false
-    this._isIdentity = false
+    internal(this).isInHand = false
+    internal(this).isIdentity = false
   }
 
   pickUp (player) {
-    this._isInHand = player.getType()
+    internal(this).isInHand = player.getType()
 
     if (player.getType() === constants.PLAYER_TYPE.killer) {
-      this._isIdentity = true
+      internal(this).isIdentity = true
       player.setIdentityCard(this)
     }
   }
 
   exonerateSuspect (suspectCard) {
-    if (this._isInHand === constants.PLAYER_TYPE.killer) return
+    if (internal(this).isInHand === constants.PLAYER_TYPE.killer) return
 
     suspectCard.exonerate()
     this.setOutOfPlay()
   }
 
   setOutOfPlay () {
-    this._isInHand = false
-    this._isIdentity = false
+    internal(this).isInHand = false
+    internal(this).isIdentity = false
     super.setOutOfPlay()
   }
 }

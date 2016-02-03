@@ -1,17 +1,18 @@
 const React = require('react')
 const ReactDOM = require('react-dom')
 
+const util = require('../util')
 const gameState = require('../gameState')
 const constants = require('../constants')
-// const util = require('../util')
 
 const DeckDisplay = require('../components/DeckDisplay')
 
+let internal = util.privateMap()
 let instance = null
 
 class Deck {
   constructor (evidenceCards) {
-    this._cards = evidenceCards
+    internal(this).cards = evidenceCards
 
     this.render()
 
@@ -25,7 +26,7 @@ class Deck {
 
     if (!player.canPickUp()) return
 
-    let card = this._cards.pop()
+    let card = internal(this).cards.pop()
 
     player.pickUp(card)
 
@@ -35,7 +36,7 @@ class Deck {
   render () {
     ReactDOM.render(
       <DeckDisplay
-        cards={this._cards}
+        cards={internal(this).cards}
         cardClick={this.cardClick.bind(this)} />,
       constants.DOM.deck
     )

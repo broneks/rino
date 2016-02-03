@@ -1,49 +1,51 @@
+const util = require('../../util')
 const constants = require('../../constants')
 
+let internal = util.privateMap()
 // let previousShift = null
 
 class Player {
   constructor (type, handMax) {
-    this._isTurnToPlay = false
-    this._hasWon = false
-    this._type = constants.PLAYER_TYPE[type]
-    this._identityCard = null
-    this._hand = []
-    this._handMax = handMax
+    internal(this).isTurnToPlay = false
+    internal(this).hasWon = false
+    internal(this).type = constants.PLAYER_TYPE[type]
+    internal(this).identityCard = null
+    internal(this).hand = []
+    internal(this).handMax = handMax
   }
 
   isTurnToPlay () {
-    return this._isTurnToPlay
+    return internal(this).isTurnToPlay
   }
 
   getType () {
-    return this._type
+    return internal(this).type
   }
 
   getIdentityCard () {
-    return this._identityCard
+    return internal(this).identityCard
   }
 
   turnToPlay () {
-    this._isTurnToPlay = true
+    internal(this).isTurnToPlay = true
   }
 
   turnIsOver () {
-    this._isTurnToPlay = false
+    internal(this).isTurnToPlay = false
   }
 
   hasWon () {
-    this._hasWon = true
+    internal(this).hasWon = true
   }
 
   canPickUp () {
-    return this._hand.length < this._handMax
+    return internal(this).hand.length < internal(this).handMax
   }
 
   pickUp (evidenceCard) {
     if (!this.isTurnToPlay()) return
 
-    this._hand.push(evidenceCard)
+    internal(this).hand.push(evidenceCard)
   }
 
   setIdentityCard (evidenceCard) {
@@ -55,7 +57,7 @@ class Player {
       previousIdentity.setOutOfPlay()
     }
 
-    this._identityCard = evidenceCard
+    internal(this).identityCard = evidenceCard
   }
 
   // shiftCards (row, column, direction) {

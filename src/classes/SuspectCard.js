@@ -1,44 +1,48 @@
+const util = require('../util')
 const constants = require('../constants')
 
 const Card = require('./base/Card')
+
+let internal = util.privateMap()
 
 class SuspectCard extends Card {
   constructor (name) {
     super(constants.CARD_TYPE.suspect, name)
 
-    this._isDeceased = false
-    this._isExonerated = false
-    this._isArrested = false
+    internal(this).isDeceased = false
+    internal(this).isExonerated = false
+    internal(this).isArrested = false
   }
 
   isExonerated () {
-    return this._isExonerated
+    return internal(this).isExonerated
   }
 
   isDeceased () {
-    return this._isDeceased
+    return internal(this).isDeceased
   }
 
   isArrested () {
-    return this._isArrested
+    return internal(this).isArrested
   }
 
   exonerate () {
-    if (!this._isDeceased) this._isExonerated = true
+    if (!internal(this).isDeceased) internal(this).isExonerated = true
   }
 
   kill () {
-    if (!this._isDeceased) this._isDeceased = true
+    if (!internal(this).isDeceased) internal(this).isDeceased = true
   }
 
   arrest () {
-    if (!this._isDeceased && !this._isExonerated) this._isArrested = true
+    if (!internal(this).isDeceased && !internal(this).isExonerated) {
+      internal(this).isArrested = true
+    }
 
     // TODO
   }
 
   setOutOfPlay () {
-    this._pos = null
     super.setOutOfPlay()
   }
 }

@@ -1,17 +1,19 @@
 const React = require('react')
 const ReactDOM = require('react-dom')
 
+const util = require('../util')
 const gameState = require('../gameState')
 const constants = require('../constants')
 
 const BoardDisplay = require('../components/BoardDisplay')
 
+let internal = util.privateMap()
 let moveDetails = null
 let instance = null
 
 class Board {
   constructor (suspectCards) {
-    this._cards = suspectCards
+    internal(this).cards = suspectCards
 
     this.render()
 
@@ -30,7 +32,7 @@ class Board {
       target = event.target.parentNode
     }
 
-    let card = this._cards[target.dataset.x][target.dataset.y]
+    let card = internal(this).cards[target.dataset.x][target.dataset.y]
     let cardName = card.getName()
 
     switch (player.getType()) {
@@ -71,7 +73,7 @@ class Board {
   }
 
   shiftRow (rowIndex, direction) {
-    let row = this._cards[rowIndex]
+    let row = internal(this).cards[rowIndex]
 
     if (direction === 'right') {
       let last = row.pop()
@@ -83,19 +85,19 @@ class Board {
   }
 
   shiftColumn (columnIndex, direction) {
-    let cardsLength = this._cards.length
-    let storedCard = this._cards[0][columnIndex]
+    let cardsLength = internal(this).cards.length
+    let storedCard = internal(this).cards[0][columnIndex]
 
-    this._cards.forEach((row, rowIndex) => {
+    internal(this).cards.forEach((row, rowIndex) => {
       let nextRowIndex
       let shiftedCard
 
       if (direction === 'up') {
         nextRowIndex = ((rowIndex + 1) < cardsLength ? rowIndex + 1 : 0)
-        shiftedCard = (nextRowIndex === 0 ? storedCard : this._cards[nextRowIndex][columnIndex])
+        shiftedCard = (nextRowIndex === 0 ? storedCard : internal(this).cards[nextRowIndex][columnIndex])
       } else {
         nextRowIndex = ((rowIndex - 1) >= 0 ? rowIndex - 1 : cardsLength - 1)
-        shiftedCard = (nextRowIndex === (cardsLength - 1) ? this._cards[nextRowIndex][columnIndex] : storedCard)
+        shiftedCard = (nextRowIndex === (cardsLength - 1) ? internal(this).cards[nextRowIndex][columnIndex] : storedCard)
       }
 
       if (direction === 'down') {
@@ -108,22 +110,22 @@ class Board {
 
   preRender () {
     // remove row if every suspect is deceased
-    this._cards.some((row, rowIndex) => {
+    internal(this).cards.some((row, rowIndex) => {
       let rowIsDeceased = row.every(suspect => suspect.isDeceased())
 
       if (rowIsDeceased) {
-        this._cards.splice(rowIndex, 1)
+        internal(this).cards.splice(rowIndex, 1)
       }
 
       return rowIsDeceased
     })
 
     // remove column if every suspect is deceased
-    this._cards[0].some((card, cardIndex) => {
-      let columnIsDeceased = this._cards.every(row => row[cardIndex].isDeceased())
+    internal(this).cards[0].some((card, cardIndex) => {
+      let columnIsDeceased = internal(this).cards.every(row => row[cardIndex].isDeceased())
 
       if (columnIsDeceased) {
-        this._cards.forEach(card => card.splice(cardIndex, 1))
+        internal(this).cards.forEach(card => card.splice(cardIndex, 1))
       }
 
       return columnIsDeceased
@@ -136,7 +138,7 @@ class Board {
   render () {
     ReactDOM.render(
       <BoardDisplay
-        cards={this._cards}
+        cards={internal(this).cards}
         onSuspectClick={this.onSuspectClick.bind(this)}
         onArrowClick={this.onArrowClick.bind(this)} />,
       constants.DOM.board
