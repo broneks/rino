@@ -1,0 +1,21 @@
+html,
+body,
+#game {
+  height: 100%;
+}
+
+#game {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  min-width: $game-min-width;
+}
+
+#main {
+  width: $main-width;
+}
+
+#side {
+  width: $side-width;
+  background: gray;
+}

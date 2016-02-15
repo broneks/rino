@@ -2,10 +2,12 @@
 
 @import '_variables';
 
-@import 'board/_board';
-@import 'board/_board-arrow';
-@import 'board/_suspect-card';
+@import '_layout';
 
-@import 'deck/_deck';
+@import 'main/board/_board';
+@import 'main/board/_board-arrow';
+@import 'main/board/_suspect-card';
+
+@import 'side/deck/_deck';
 
 @import 'side/_move-details';

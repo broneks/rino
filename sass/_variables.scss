@@ -1,14 +1,22 @@
 //
 // General
 //
-$card-height: 6em;
+$game-min-width: 900px;
+$main-width: 70%;
+$side-width: 100 - $main-width;
+
+//
+// Card
+//
+$card-height: 5rem;
 $card-radius: 5%;
 $card-border-color: silver;
 
 //
 // Board
 //
-$board-width: 75%;
+$board-width: 80%;
+$board-max-width: 700px;
 
 $board-card-gutter: 1.5%;
 $board-card-color: aquamarine;
