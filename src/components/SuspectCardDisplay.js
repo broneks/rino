@@ -26,7 +26,7 @@ class SuspectCardDisplay extends React.Component {
       transform: `rotate(${ rotateDirection }${ rotation }deg)`
     }
 
-    let classNames = 'suspect-card ' + cardName.toLowerCase()
+    let classNames = 'suspect-card card ' + cardName.toLowerCase()
 
     if (this.state.card.isDeceased()) classNames += ' deceased'
     else if (this.state.card.isExonerated()) classNames += ' exonerated'
@@ -44,7 +44,7 @@ class SuspectCardDisplay extends React.Component {
         data-y={this.props.dataY}
         data-name={cardName}
         onClick={click}>
-        <div className='suspect-card-name'>{cardName}</div>
+        <div className='suspect-card-name card-name'>{cardName}</div>
       </div>
     )
   }

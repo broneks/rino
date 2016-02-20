@@ -1,14 +1,15 @@
 const util = require('../../util')
 const constants = require('../../constants')
 
-const internal = util.privateMap()
 const PlayerHand = require('./PlayerHand')
+
+let internal = util.privateMap()
 
 class Player {
   constructor (type, handMax) {
     internal(this).isTurnToPlay = false
     internal(this).hasWon = false
-    internal(this).type = constants.PLAYER_TYPE[type]
+    internal(this).type = type
     internal(this).identityCard = null
     internal(this).hand = new PlayerHand(handMax)
   }

@@ -11,9 +11,9 @@ class HandDisplay extends React.Component {
 
       return (
         <div
-          className='evidence-card'
+          className='evidence-card card'
           key={name}>
-          <div className='evidence-card-name'>{name}</div>
+          <div className='card-name'>{name}</div>
         </div>
       )
     })
