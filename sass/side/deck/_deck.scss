@@ -12,7 +12,7 @@
       border: 1px dashed $card-border-color;
       border-radius: $card-radius;
       height: $card-height;
-      width: 100px;
+      width: $deck-card-width;
       text-align: center;
       font-style: italic;
 
@@ -29,7 +29,7 @@
     display: block;
     background-color: $deck-card-back-color;
     height: $card-height;
-    width: 100px;
+    width: $deck-card-width;
     border: 1px solid $card-border-color;
     border-radius: $card-radius;
     cursor: pointer;
