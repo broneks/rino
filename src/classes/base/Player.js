@@ -1,17 +1,17 @@
 const util = require('../../util')
 const constants = require('../../constants')
 
+const PlayerHand = require('./PlayerHand')
+
 let internal = util.privateMap()
-// let previousShift = null
 
 class Player {
   constructor (type, handMax) {
     internal(this).isTurnToPlay = false
     internal(this).hasWon = false
-    internal(this).type = constants.PLAYER_TYPE[type]
+    internal(this).type = type
     internal(this).identityCard = null
-    internal(this).hand = []
-    internal(this).handMax = handMax
+    internal(this).hand = new PlayerHand(handMax)
   }
 
   isTurnToPlay () {
@@ -39,13 +39,13 @@ class Player {
   }
 
   canPickUp () {
-    return internal(this).hand.length < internal(this).handMax
+    return internal(this).hand.canPickUp()
   }
 
   pickUp (evidenceCard) {
     if (!this.isTurnToPlay()) return
 
-    internal(this).hand.push(evidenceCard)
+    internal(this).hand.addCard(evidenceCard)
   }
 
   setIdentityCard (evidenceCard) {
