@@ -1,8 +1,8 @@
 'use strict'
 
 const gulp = require('gulp')
-const webpack = require('webpack-stream')
-const uglify = require('gulp-uglify')
+const webpackStream = require('webpack-stream')
+const webpack = require('webpack')
 const sass = require('gulp-sass')
 const autoprefixer = require('gulp-autoprefixer')
 const plumber = require('gulp-plumber')
@@ -27,29 +27,41 @@ const webpackConfig = {
   },
   output: {
     filename: 'main.js'
-  }
+  },
+  plugins: [
+    new webpack.optimize.UglifyJsPlugin({
+      compress: {
+        warnings: false
+      }
+    })
+  ],
+  devtool: 'inline-source-maps'
 }
 
 const standardConfig = {
-  // globals: [],
+  globals: [
+    'io'
+  ],
   ignore: [
-    'dist/'
+    'public/'
   ],
   parser: 'babel-eslint'
 }
 
 gulp.task('standard', () => {
-  gulp.src('src/**/*.js')
+  gulp.src([
+    'client/**/*.js',
+    'server/**/*.js'
+  ])
     .pipe(standard(standardConfig))
     .pipe(standard.reporter('default'))
 })
 
 gulp.task('scripts', () => {
-  gulp.src('src/main.js')
+  gulp.src('client/main.js')
     .pipe(plumber())
-    .pipe(webpack(webpackConfig))
-    // .pipe(uglify())
-    .pipe(gulp.dest('dist'))
+    .pipe(webpackStream(webpackConfig))
+    .pipe(gulp.dest('public/js'))
     .pipe(browserSync.stream());
 })
 
@@ -63,18 +75,23 @@ gulp.task('styles', () => {
     .pipe(sass({
       outputStyle: 'compressed'
     }))
-    .pipe(gulp.dest('dist/css'))
+    .pipe(gulp.dest('public/css'))
     .pipe(browserSync.stream());
 })
 
 gulp.task('watch', tasks, () => {
   browserSync.init({
-    server: './'
+    proxy: 'localhost:9000',
+    ws: true
   })
 
-  gulp.watch('src/**/*.js', ['standard', 'scripts'])
+  gulp.watch([
+    'client/**/*.js',
+    'server/**/*.js'
+  ], ['standard'])
+  gulp.watch('client/**/*.js', ['scripts'])
   gulp.watch('sass/**/*.scss', ['styles'])
-  gulp.watch('index.html').on('change', browserSync.reload)
+  gulp.watch('server/**/*.jade').on('change', browserSync.reload)
 })
 
 gulp.task('default', tasks)

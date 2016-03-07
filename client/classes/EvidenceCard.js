@@ -1,5 +1,5 @@
-const util = require('../util')
-const constants = require('../constants')
+const util = require('../../shared/util')
+const constants = require('../../shared/constants')
 
 const Card = require('./base/Card')
 

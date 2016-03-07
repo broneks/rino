@@ -1,4 +1,4 @@
-const util = require('../../util')
+const util = require('../../../shared/util')
 
 let internal = util.privateMap()
 

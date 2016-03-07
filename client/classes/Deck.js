@@ -1,9 +1,9 @@
 const React = require('react')
 const ReactDOM = require('react-dom')
 
-const util = require('../util')
+const util = require('../../shared/util')
 const gameState = require('../gameState')
-const constants = require('../constants')
+const DOM = require('../DOM')
 
 const DeckDisplay = require('../components/DeckDisplay')
 
@@ -22,7 +22,7 @@ class Deck {
   }
 
   cardClick (event) {
-    let player = gameState.getCurrentPlayer()
+    let player = gameState.getPlayer()
 
     if (!player.canPickUp()) return
 
@@ -38,7 +38,7 @@ class Deck {
       <DeckDisplay
         cards={internal(this).cards}
         cardClick={this.cardClick.bind(this)} />,
-      constants.DOM.deck
+      DOM.deck
     )
   }
 }

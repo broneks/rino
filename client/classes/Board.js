@@ -1,9 +1,10 @@
 const React = require('react')
 const ReactDOM = require('react-dom')
 
-const util = require('../util')
+const util = require('../../shared/util')
+const constants = require('../../shared/constants')
 const gameState = require('../gameState')
-const constants = require('../constants')
+const DOM = require('../DOM')
 
 const BoardDisplay = require('../components/BoardDisplay')
 
@@ -23,7 +24,7 @@ class Board {
   }
 
   onSuspectClick (event) {
-    let player = gameState.getCurrentPlayer()
+    let player = gameState.getPlayer()
     let target
 
     if (event.target.dataset.suspect) {
@@ -141,7 +142,7 @@ class Board {
         cards={internal(this).cards}
         onSuspectClick={this.onSuspectClick.bind(this)}
         onArrowClick={this.onArrowClick.bind(this)} />,
-      constants.DOM.board
+      DOM.board
     )
 
     if (moveDetails) moveDetails()

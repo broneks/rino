@@ -2,9 +2,9 @@
   "name": "rino",
   "version": "0.1.0",
   "description": "A detective card game",
-  "main": "dist/main.js",
+  "main": "server/app.js",
   "scripts": {
-    "start": "node dist/main.js"
+    "start": "node bin/www"
   },
   "repository": {
     "type": "git",
@@ -22,14 +22,17 @@
     "gulp-autoprefixer": "^3.1.0",
     "gulp-plumber": "^1.0.1",
     "gulp-sass": "^2.1.1",
-    "gulp-sourcemaps": "^1.6.0",
     "gulp-standard": "^5.2.2",
-    "gulp-uglify": "^1.5.1",
     "webpack-stream": "^3.1.0"
   },
   "dependencies": {
     "babel-preset-react": "^6.3.13",
+    "debug": "^2.2.0",
+    "express": "^4.13.4",
+    "jade": "^1.11.0",
     "react": "^0.14.6",
-    "react-dom": "^0.14.6"
+    "react-dom": "^0.14.6",
+    "serve-favicon": "^2.3.0",
+    "socket.io": "^1.4.5"
   }
 }

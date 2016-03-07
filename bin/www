@@ -1,0 +1,13 @@
+#!/usr/bin/env node
+
+'use strict'
+
+const debug = require('debug')('rino')
+const app = require('../server/app').app
+const server = require('../server/app').server
+
+app.set('port', process.env.PORT || 9000)
+
+server.listen(app.get('port'), () => {
+  debug('listening on port ' + app.get('port'))
+})
