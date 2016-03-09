@@ -2,17 +2,17 @@
 
 const constants = require('../shared/constants')
 
-let users = []
+let _users = []
 
 module.exports = {
   max: 2,
 
   maxReached () {
-    return users.length === this.max
+    return _users.length === this.max
   },
 
   exists (sessionId) {
-    return !!users.length && users.map(user => user.sessionId).indexOf(sessionId) > -1
+    return !!_users.length && _users.map(user => user.sessionId).indexOf(sessionId) > -1
   },
 
   add (id, sessionId) {
@@ -31,34 +31,34 @@ module.exports = {
       disconnected: false,
       removed: false
     }
-    users.push(user)
+    _users.push(user)
 
     return user
   },
 
   killerIsAssigned () {
-    return users.length && (users.map(user => user.playerType).indexOf('killer') > -1)
+    return _users.length && (_users.map(user => user.playerType).indexOf('killer') > -1)
   },
 
   getBySessionId (sessionId) {
-    return users.length
-      ? users.filter(user => user.sessionId === sessionId)[0]
+    return _users.length
+      ? _users.filter(user => user.sessionId === sessionId)[0]
       : null
   },
 
   getOpponent (sessionId) {
     if (!this.maxReached()) return null
 
-    return users.filter(user => user.sessionId !== sessionId)[0]
+    return _users.filter(user => user.sessionId !== sessionId)[0]
   },
 
   removeDisconnected () {
-    if (!users.length) return
+    if (!_users.length) return
 
-    users.forEach((user, index) => {
+    _users.forEach((user, index) => {
       if (user.disconnected) {
         user.removed = true
-        users.splice(index, 1)
+        _users.splice(index, 1)
       }
     })
   }

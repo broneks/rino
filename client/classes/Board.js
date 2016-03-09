@@ -6,6 +6,7 @@ const constants = require('../../shared/constants')
 const gameState = require('../gameState')
 const DOM = require('../DOM')
 
+const SuspectCard = require('./SuspectCard')
 const BoardDisplay = require('../components/BoardDisplay')
 
 let internal = util.privateMap()
@@ -13,8 +14,10 @@ let moveDetails = null
 let instance = null
 
 class Board {
-  constructor (suspectCards) {
-    internal(this).cards = suspectCards
+  constructor (cardNames) {
+    internal(this).cards = util.chunk(cardNames, 5).map(row => {
+      return row.map(name => new SuspectCard(name))
+    })
 
     this.render()
 
@@ -24,6 +27,8 @@ class Board {
   }
 
   onSuspectClick (event) {
+    if (!gameState.isPlayersTurn()) return
+
     let player = gameState.getPlayer()
     let target
 
@@ -56,6 +61,8 @@ class Board {
   }
 
   onArrowClick (event) {
+    if (!gameState.isPlayersTurn()) return
+
     let target = event.target
 
     let row = target.dataset.row
@@ -133,7 +140,7 @@ class Board {
     })
 
     this.render()
-    gameState.nextTurn()
+    gameState.endTurn()
   }
 
   render () {

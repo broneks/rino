@@ -1,9 +1,5 @@
-const util = require('../shared/util')
-
 const gameState = require('./gameState')
 
-const SuspectCard = require('./classes/SuspectCard')
-const EvidenceCard = require('./classes/EvidenceCard')
 const Board = require('./classes/Board')
 const Deck = require('./classes/Deck')
 
@@ -12,34 +8,27 @@ const game = {
 
   init (gameSettings) {
     if (!gameSettings ||
-        !gameSettings.suspectCardNames ||
-        !gameSettings.evidenceCardNames) {
-      throw Error('could not initialize game.')
+        !gameSettings.startTime ||
+        !gameSettings.cardNames) {
+      throw Error('could not initialize game. Missing game settings.')
     }
 
-    const suspectCards = util.chunk(gameSettings.suspectCardNames, 5).map(row => {
-      return row.map(name => {
-        return new SuspectCard(name)
-      })
-    })
-    const evidenceCards = gameSettings.evidenceCardNames.map(name => new EvidenceCard(name))
+    gameState.setBoard(new Board(gameSettings.cardNames.suspect))
+    gameState.setDeck(new Deck(gameSettings.cardNames.evidence))
+    gameState.setClock(gameSettings.startTime)
+    gameState.setTurn(gameSettings.turn)
 
-    gameState.setBoard(new Board(suspectCards))
-    gameState.setDeck(new Deck(evidenceCards))
+    gameState.listen('state:next-turn', gameState.setTurn)
+    gameState.listen('state:update-deck', gameState.updateDeck)
 
     this.start()
   },
 
   start () {
     document.body.classList.add(this.startClassName)
-
-    // TODO
-    console.log(gameState.getBoard())
-    console.log(gameState.getDeck())
   },
 
   reset () {
-    console.log('reset')
     document.body.classList.remove(this.startClassName)
     gameState.reset()
   }

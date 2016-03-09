@@ -5,12 +5,12 @@ const app = express()
 const server = require('http').createServer(app)
 
 const path = require('path')
-// const favicon = require('serve-favicon')
+const favicon = require('serve-favicon')
 
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'jade')
 app.use(express.static(path.join(__dirname, '../public')))
-// app.use(favicon(__dirname + '../public/img/favicon.ico'))
+app.use(favicon(path.join(__dirname, '../public/img/favicon.ico')))
 
 require('./routes')(app, express.Router())
 require('./sockets')(server)

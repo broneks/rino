@@ -1,5 +1,6 @@
 'use strict'
 
+const config = require('./config.json')
 const gulp = require('gulp')
 const webpackStream = require('webpack-stream')
 const webpack = require('webpack')
@@ -29,6 +30,9 @@ const webpackConfig = {
     filename: 'main.js'
   },
   plugins: [
+    new webpack.DefinePlugin({
+      ENV: config
+    }),
     new webpack.optimize.UglifyJsPlugin({
       compress: {
         warnings: false
@@ -40,6 +44,7 @@ const webpackConfig = {
 
 const standardConfig = {
   globals: [
+    'ENV',
     'io'
   ],
   ignore: [
@@ -51,7 +56,8 @@ const standardConfig = {
 gulp.task('standard', () => {
   gulp.src([
     'client/**/*.js',
-    'server/**/*.js'
+    'server/**/*.js',
+    'shared/**/*.js'
   ])
     .pipe(standard(standardConfig))
     .pipe(standard.reporter('default'))
@@ -87,7 +93,8 @@ gulp.task('watch', tasks, () => {
 
   gulp.watch([
     'client/**/*.js',
-    'server/**/*.js'
+    'server/**/*.js',
+    'shared/**/*.js'
   ], ['standard'])
   gulp.watch('client/**/*.js', ['scripts'])
   gulp.watch('sass/**/*.scss', ['styles'])

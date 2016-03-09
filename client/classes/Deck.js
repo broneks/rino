@@ -5,30 +5,36 @@ const util = require('../../shared/util')
 const gameState = require('../gameState')
 const DOM = require('../DOM')
 
+const EvidenceCard = require('./EvidenceCard')
 const DeckDisplay = require('../components/DeckDisplay')
 
 let internal = util.privateMap()
 let instance = null
 
 class Deck {
-  constructor (evidenceCards) {
-    internal(this).cards = evidenceCards
-
-    this.render()
+  constructor (cardNames) {
+    this.setCards(cardNames)
 
     // singleton
     if (!instance) instance = this
     return instance
   }
 
+  setCards (cardNames) {
+    internal(this).cards = cardNames.map(name => new EvidenceCard(name))
+
+    this.render()
+  }
+
   cardClick (event) {
     let player = gameState.getPlayer()
 
-    if (!player.canPickUp()) return
+    if (!gameState.isPlayersTurn() || !player.canPickUp()) return
 
     let card = internal(this).cards.pop()
 
     player.pickUp(card)
+    gameState.cardPickedUp()
 
     this.render()
   }

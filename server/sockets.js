@@ -11,7 +11,7 @@ module.exports = (server) => {
     const id = socket.id
     let user = null
 
-    socket.on('join', (sessionId) => {
+    socket.on('event:join', (sessionId) => {
       // existing player is rejoining
       if (users.exists(sessionId)) {
         let gameSettings = game.getSettings()
@@ -19,22 +19,22 @@ module.exports = (server) => {
         user = users.getBySessionId(sessionId)
         user.disconnected = false
 
-        io.to(id).emit('get-user', user)
-        io.to(id).emit('get-opponent', users.getOpponent(sessionId))
+        io.to(id).emit('data:get-user', user)
+        io.to(id).emit('data:get-opponent', users.getOpponent(sessionId))
 
-        if (gameSettings) io.to(id).emit('game-init', gameSettings)
-      } else {
+        if (gameSettings) io.to(id).emit('data:game-init', gameSettings)
+      } else if (!users.maxReached()) {
         user = users.add(id, sessionId)
 
-        socket.broadcast.emit('player-connected', user)
+        socket.broadcast.emit('event:player-connected', user)
 
-        io.to(id).emit('get-user', user)
-        io.to(id).emit('get-opponent', users.getOpponent(sessionId))
+        io.to(id).emit('data:get-user', user)
+        io.to(id).emit('data:get-opponent', users.getOpponent(sessionId))
 
         // final player has joined
         if (users.maxReached()) {
           game.init()
-          io.emit('game-init', game.getSettings())
+          io.emit('data:game-init', game.getSettings())
         }
       }
     })
@@ -45,12 +45,22 @@ module.exports = (server) => {
         setTimeout(() => {
           if (user.disconnected && !user.removed) {
             users.removeDisconnected()
-            io.emit('player-disconnected')
+            io.emit('event:player-disconnected')
             game.reset()
             socket.disconnect()
           }
         }, 4000)
       }
+    })
+
+    socket.on('state:end-turn', () => {
+      const nextTurn = game.nextTurn()
+      if (nextTurn) io.emit('state:next-turn', nextTurn)
+    })
+
+    socket.on('state:card-picked-up', () => {
+      const updatedDeck = game.updateDeck()
+      if (updatedDeck) io.emit('state:update-deck', updatedDeck)
     })
   })
 }
