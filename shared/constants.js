@@ -1,3 +1,5 @@
+'use strict'
+
 const PLAYER_TYPE = {
   inspector: 'inspector',
   killer: 'killer'
@@ -16,21 +18,12 @@ const CARD_NAMES = [
   'Ulysses', 'Vladimir', 'Wilhelm', 'Yvonne', 'Zachary'
 ]
 
-const DOM = {
-  board: document.getElementById('game-board'),
-  deck: document.getElementById('game-deck'),
-  moveDetails: document.getElementById('move-details'),
-  hand: document.getElementById('player-hand')
-}
-
 Object.freeze(PLAYER_TYPE)
 Object.freeze(CARD_TYPE)
-Object.freeze(DOM)
 
 module.exports = {
   PLAYER_TYPE,
   CARD_TYPE,
-  DOM,
 
   get CARD_NAMES () {
     return CARD_NAMES.slice()

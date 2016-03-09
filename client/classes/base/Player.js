@@ -1,5 +1,4 @@
-const util = require('../../util')
-const constants = require('../../constants')
+const util = require('../../../shared/util')
 
 const PlayerHand = require('./PlayerHand')
 

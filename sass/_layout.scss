@@ -19,3 +19,58 @@ body,
   width: $side-width;
   background: gray;
 }
+
+#idle-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #fff;
+  .message {
+    position: absolute;
+    top: 33.33%;
+    left: 50%;
+    transform: translate(-50%, -33.33%);
+    .other-player {
+      position: relative;
+      text-align: center;
+      letter-spacing: 1px;
+      font-weight: bold;
+      padding: 0 0.5rem;
+    }
+  }
+}
+body.is-killer {
+  #idle-overlay .message .other-player {
+    visibility: hidden;
+    &:after {
+      visibility: visible;
+      position: absolute;
+      left: 0;
+      right: 0;
+      color: blue;
+      content: 'inspector';
+    }
+  }
+}
+body.is-inspector {
+  #idle-overlay .message .other-player {
+    visibility: hidden;
+    &:after {
+      visibility: visible;
+      position: absolute;
+      left: 0;
+      right: 0;
+      color: red;
+      content: 'killer';
+    }
+  }
+}
+body.game-on-good-luck {
+  #idle-overlay {
+    display: none;
+    position: static;
+    background-color: transparent;
+  }
+}

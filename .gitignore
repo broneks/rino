@@ -32,10 +32,12 @@ node_modules
 # Optional REPL history
 .node_repl_history
 
+# todo list
+todo.md
+
 #
 # project specific
 #
 dist
-
-# todo list
-todo.md
+public/css
+public/js

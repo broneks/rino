@@ -2,8 +2,8 @@ const React = require('react')
 const ReactDOM = require('react-dom')
 
 const HandDisplay = require('../../components/HandDisplay')
-const util = require('../../util')
-const constants = require('../../constants')
+const util = require('../../../shared/util')
+const DOM = require('../../DOM')
 
 let internal = util.privateMap()
 
@@ -20,21 +20,17 @@ class PlayerHand {
   }
 
   addCard (evidenceCard) {
-    if (internal(this).hand.length < internal(this).maxCards) {
+    if (this.canPickUp()) {
       internal(this).hand.push(evidenceCard)
-      // keep picking up
-    } else {
-      // drop card
+      this.render()
     }
-
-    this.render()
   }
 
   render () {
     ReactDOM.render(
       <HandDisplay
         hand={internal(this).hand} />,
-      constants.DOM.hand
+      DOM.hand
     )
   }
 }

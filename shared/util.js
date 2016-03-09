@@ -1,4 +1,8 @@
-module.exports = {
+'use strict'
+
+const isServerSide = () => typeof window === 'undefined'
+
+const util = {
   privateMap () {
     let weakMap = new WeakMap()
 
@@ -8,22 +12,26 @@ module.exports = {
     }
   },
 
-  shuffle (array = []) {
+  shuffle (array) {
     let currentIndex = array.length
     let randomIndex
+    let temp
 
     while (currentIndex) {
       randomIndex = Math.floor(Math.random() * currentIndex)
       currentIndex -= 1
 
       // swap values
-      ;[array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]]
+
+      temp = array[currentIndex]
+      array[currentIndex] = array[randomIndex]
+      array[randomIndex] = temp
     }
 
     return array
   },
 
-  chunk (array = [], size = 5) {
+  chunk (array, size) {
     let chunked = []
     let len = array.length
 
@@ -36,7 +44,23 @@ module.exports = {
     return chunked
   },
 
+  capitalizeFirstLetter (str) {
+    if (str && typeof str === 'string') {
+      return str.charAt(0).toUpperCase() + str.slice(1)
+    }
+  },
+
+  generateUID () {
+    return Math.random().toString(36).substring(3, 16) + Date.now()
+  },
+
+  //
+  // client-side only
+  //
+
   addClass (node, classNames) {
+    if (isServerSide()) return
+
     if (node) {
       let nodeArray = Array.from(node) || [node]
       let classNamesArray = classNames.split(' ')
@@ -49,9 +73,15 @@ module.exports = {
     return this
   },
 
-  capitalizeFirstLetter (str) {
-    if (str && typeof str === 'string') {
-      return str.charAt(0).toUpperCase() + str.slice(1)
+  removeChildren (node) {
+    if (isServerSide()) return
+
+    while (node.firstChild) {
+      node.removeChild(node.firstChild)
     }
+
+    return this
   }
 }
+
+module.exports = util
