@@ -133,6 +133,12 @@ export default {
   setTurn (turn) {
     state.turn = turn
 
+    if (this.isPlayersTurn()) {
+      document.body.classList.add('is-players-turn')
+    } else {
+      document.body.classList.remove('is-players-turn')
+    }
+
     if (ENV.debug) {
       console.log(`turn: ${ state.turn.number } - ${ state.turn.player } - ${ this.isPlayersTurn() }`)
     }

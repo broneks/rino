@@ -1,17 +1,15 @@
-@import '_reset';
+@import 'reset';
+@import 'variables';
 
-@import '_variables';
+@import 'layout';
+@import 'is-players-turn';
 
-@import '_layout';
+@import 'main/card';
+@import 'main/evidence-card';
+@import 'main/board/board';
+@import 'main/board/board-arrow';
+@import 'main/board/suspect-card';
+@import 'main/hand/hand.scss';
 
-@import 'main/_card';
-@import 'main/_evidence-card';
-@import 'main/board/_board';
-@import 'main/board/_board-arrow';
-@import 'main/board/_suspect-card';
-
-@import 'main/hand/_hand.scss';
-
-@import 'side/deck/_deck';
-
-@import 'side/_move-details';
+@import 'side/deck/deck';
+@import 'side/move-details';

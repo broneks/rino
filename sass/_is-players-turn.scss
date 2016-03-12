@@ -1,0 +1,16 @@
+body.is-players-turn {
+  .board-arrow,
+  .card,
+  .card-name,
+  .deck-card,
+  .deck-card-name {
+    cursor: pointer;
+  }
+
+  .board-arrow {
+    &:focus,
+    &:hover {
+      opacity: 1;
+    }
+  }
+}

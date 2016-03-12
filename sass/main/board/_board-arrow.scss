@@ -1,15 +1,9 @@
 .board-arrow {
   width: 0;
   height: 0;
-  cursor: pointer;
   pointer-events: visible;
   opacity: 0.1;
   transition: opacity 0.4s ease-in-out;
-
-  &:focus,
-  &:hover {
-    opacity: 1;
-  }
 
   &.left-arrow {
     margin: 0 $board-card-gutter;

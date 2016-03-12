@@ -1,7 +1,6 @@
 .card {
   height: $card-height;
   text-align: center;
-  cursor: pointer;
   border: 1px solid $card-border-color;
   border-radius: $card-radius;
   opacity: 1;
@@ -10,6 +9,7 @@
   backface-visibility: hidden; // enable hardware acceleration
 
   &-name {
+    cursor: default;
     position: relative;
     top: 50%;
     transform: translateY(-50%);

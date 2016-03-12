@@ -50,19 +50,6 @@ export function privateMap () {
   }
 }
 
-export function addClass (node, classNames) {
-  if (isServerSide()) return
-
-  if (node) {
-    let nodeArray = Array.from(node) || [node]
-    let classNamesArray = classNames.split(' ')
-
-    nodeArray.forEach(n => {
-      classNamesArray.forEach(className => n.classList.add(className))
-    })
-  }
-}
-
 export function removeChildren (node) {
   if (isServerSide()) return
 
@@ -84,6 +71,5 @@ export const serverUtils = {
 export default Object.assign({
   generateUID,
   privateMap,
-  addClass,
   removeChildren
 }, serverUtils)
