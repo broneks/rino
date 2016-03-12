@@ -9,11 +9,11 @@ export const CARD_TYPE = {
 }
 
 export const CARD_NAMES = [
-  'Alyss', 'Barrin', 'Clive', 'Deidre', 'Ernest',
-  'Franklin', 'Geneva', 'Horatio', 'Irma', 'Julian',
-  'Kristoph', 'Linus', 'Marion', 'Neil', 'Ophelia',
-  'Phoebe', 'Quinton', 'Ryan', 'Simon', 'Trevor',
-  'Ulysses', 'Vladimir', 'Wilhelm', 'Yvonne', 'Zachary'
+  'Albin', 'Benjamin', 'Candace', 'Duncan', 'Eleanor',
+  'Felix', 'Geneva', 'Hugo', 'Isaac', 'Joy',
+  'Karin', 'Lucija', 'Maurice', 'Nico', 'Oskar',
+  'Phillip', 'Quinton', 'Rafael', 'Shawna', 'Toby',
+  'Ulysses', 'Violet', 'Wyatt', 'Yvonne', 'Zoe'
 ]
 
 export default {
