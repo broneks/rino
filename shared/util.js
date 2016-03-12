@@ -1,6 +1,7 @@
 const isServerSide = () => typeof window === 'undefined'
 
 export function shuffle (array) {
+  let shuffled = array.slice()
   let currentIndex = array.length
   let randomIndex
   let temp
@@ -10,12 +11,12 @@ export function shuffle (array) {
     currentIndex -= 1
 
     // swap values
-    temp = array[currentIndex]
-    array[currentIndex] = array[randomIndex]
-    array[randomIndex] = temp
+    temp = shuffled[currentIndex]
+    shuffled[currentIndex] = shuffled[randomIndex]
+    shuffled[randomIndex] = temp
   }
 
-  return array
+  return shuffled
 }
 
 export function chunk (array, size) {
