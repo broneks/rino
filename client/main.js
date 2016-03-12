@@ -1,5 +1,5 @@
 import util from '../shared/util'
-import gameState from './gameState'
+import state from './state'
 import game from './game'
 
 import Killer from './classes/Killer'
@@ -15,7 +15,7 @@ socket.emit('event:join', sessionId)
 socket.on('event:player-connected', (opponent) => {
   if (ENV.debug) console.log('event:player-connected: \n\t', opponent)
 
-  gameState.setOpponent(opponent)
+  state.setOpponent(opponent)
 })
 
 socket.on('event:player-disconnected', () => {
@@ -27,14 +27,14 @@ socket.on('event:player-disconnected', () => {
 socket.on('data:get-user', (user) => {
   if (ENV.debug) console.log('data:get-user: \n\t', user)
 
-  gameState.setUser(user)
-  gameState.setPlayer(user.playerType, Killer, Inspector)
+  state.setUser(user)
+  state.setPlayer(user.playerType, Killer, Inspector)
 })
 
 socket.on('data:get-opponent', (opponent) => {
   if (ENV.debug) console.log('data:get-opponent: \n\t', opponent)
 
-  gameState.setOpponent(opponent)
+  state.setOpponent(opponent)
 })
 
 socket.on('data:game-init', (gameSettings) => {

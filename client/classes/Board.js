@@ -4,7 +4,7 @@ import {render as ReactRender} from 'react-dom'
 import {privateMap, chunk} from '../../shared/util'
 import {PLAYER_TYPE} from '../../shared/constants'
 import DOM from '../DOM'
-import gameState from '../gameState'
+import state from '../state'
 
 import SuspectCard from './SuspectCard'
 import BoardDisplay from '../components/BoardDisplay'
@@ -27,9 +27,9 @@ export default class Board {
   }
 
   onSuspectClick (event) {
-    if (!gameState.isPlayersTurn()) return
+    if (!state.isPlayersTurn()) return
 
-    let player = gameState.getPlayer()
+    let player = state.getPlayer()
     let target
 
     if (event.target.dataset.suspect) {
@@ -44,7 +44,7 @@ export default class Board {
     switch (player.getType()) {
       case PLAYER_TYPE.killer:
         player.kill(card)
-        moveDetails = gameState.setMoveDetails(`killed ${ cardName }`)
+        moveDetails = state.setMoveDetails(`killed ${ cardName }`)
         break
 
       case PLAYER_TYPE.inspector:
@@ -53,7 +53,7 @@ export default class Board {
         if (card.isExonerated()) return
 
         player.arrest(card)
-        moveDetails = gameState.setMoveDetails(`arrested ${ cardName }`)
+        moveDetails = state.setMoveDetails(`arrested ${ cardName }`)
         break
     }
 
@@ -61,7 +61,7 @@ export default class Board {
   }
 
   onArrowClick (event) {
-    if (!gameState.isPlayersTurn()) return
+    if (!state.isPlayersTurn()) return
 
     let target = event.target
 
@@ -71,10 +71,10 @@ export default class Board {
 
     if (row) {
       this.shiftRow(row, direction)
-      moveDetails = gameState.setMoveDetails(`shifted row ${ parseInt(row, 10) + 1 } ${ direction }`)
+      moveDetails = state.setMoveDetails(`shifted row ${ parseInt(row, 10) + 1 } ${ direction }`)
     } else if (column) {
       this.shiftColumn(column, direction)
-      moveDetails = gameState.setMoveDetails(`shifted column ${ parseInt(column, 10) + 1 } ${ direction }`)
+      moveDetails = state.setMoveDetails(`shifted column ${ parseInt(column, 10) + 1 } ${ direction }`)
     }
 
     this.preRender()
@@ -140,7 +140,7 @@ export default class Board {
     })
 
     this.render()
-    gameState.endTurn()
+    state.endTurn()
   }
 
   render () {

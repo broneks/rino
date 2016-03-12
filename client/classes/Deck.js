@@ -3,7 +3,7 @@ import {render as ReactRender} from 'react-dom'
 
 import {privateMap} from '../../shared/util'
 import DOM from '../DOM'
-import gameState from '../gameState'
+import state from '../state'
 
 import EvidenceCard from './EvidenceCard'
 import DeckDisplay from '../components/DeckDisplay'
@@ -27,14 +27,14 @@ export default class Deck {
   }
 
   cardClick (event) {
-    let player = gameState.getPlayer()
+    let player = state.getPlayer()
 
-    if (!gameState.isPlayersTurn() || !player.canPickUp()) return
+    if (!state.isPlayersTurn() || !player.canPickUp()) return
 
     let card = internal(this).cards.pop()
 
     player.pickUp(card)
-    gameState.cardPickedUp()
+    state.cardPickedUp()
 
     this.render()
   }

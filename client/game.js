@@ -1,4 +1,4 @@
-import gameState from './gameState'
+import state from './state'
 
 import Board from './classes/Board'
 import Deck from './classes/Deck'
@@ -13,13 +13,13 @@ export default {
       throw Error('could not initialize game. Missing game settings.')
     }
 
-    gameState.setBoard(new Board(gameSettings.cardNames.suspect))
-    gameState.setDeck(new Deck(gameSettings.cardNames.evidence))
-    gameState.setClock(gameSettings.startTime)
-    gameState.setTurn(gameSettings.turn)
+    state.setBoard(new Board(gameSettings.cardNames.suspect))
+    state.setDeck(new Deck(gameSettings.cardNames.evidence))
+    state.setClock(gameSettings.startTime)
+    state.setTurn(gameSettings.turn)
 
-    gameState.listen('state:next-turn', gameState.setTurn)
-    gameState.listen('state:update-deck', gameState.updateDeck)
+    state.listen('state:next-turn', state.setTurn)
+    state.listen('state:update-deck', state.updateDeck)
 
     this.start()
   },
@@ -30,6 +30,6 @@ export default {
 
   reset () {
     document.body.classList.remove(this.startClassName)
-    gameState.reset()
+    state.reset()
   }
 }

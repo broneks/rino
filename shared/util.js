@@ -81,20 +81,9 @@ export const serverUtils = {
   capitalizeFirstLetter
 }
 
-export default {
-  shuffle,
-  chunk,
-  capitalizeFirstLetter,
-
+export default Object.assign({
   generateUID,
   privateMap,
   addClass,
   removeChildren
-}
-
-// export default Object.assign({
-//   generateUID,
-//   privateMap,
-//   addClass,
-//   removeChildren
-// }, serverUtils)
+}, serverUtils)
