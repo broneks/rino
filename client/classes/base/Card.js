@@ -1,8 +1,8 @@
-const util = require('../../../shared/util')
+import {privateMap} from '../../../shared/util'
 
-let internal = util.privateMap()
+let internal = privateMap()
 
-class Card {
+export default class Card {
   constructor (type, name) {
     internal(this).type = type
     internal(this).name = name
@@ -21,5 +21,3 @@ class Card {
     internal(this).isOutOfPlay = true
   }
 }
-
-module.exports = Card

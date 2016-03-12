@@ -1,6 +1,4 @@
-'use strict'
-
-module.exports = (app, router) => {
+export default (app, router) => {
   app.use('/', router)
 
   router.route('/')

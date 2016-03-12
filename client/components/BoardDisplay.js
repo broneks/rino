@@ -1,9 +1,9 @@
-const React = require('react')
+import React, {Component, PropTypes} from 'react'
 
-const SuspectCardDisplay = require('./SuspectCardDisplay')
-const BoardArrowDisplay = require('./BoardArrowDisplay')
+import SuspectCardDisplay from './SuspectCardDisplay'
+import BoardArrowDisplay from './BoardArrowDisplay'
 
-class BoardDisplay extends React.Component {
+export default class BoardDisplay extends Component {
   constructor (props) {
     super(props)
 
@@ -99,9 +99,7 @@ class BoardDisplay extends React.Component {
 }
 
 BoardDisplay.propTypes = {
-  cards: React.PropTypes.array.isRequired,
-  onSuspectClick: React.PropTypes.func.isRequired,
-  onArrowClick: React.PropTypes.func.isRequired
+  cards: PropTypes.array.isRequired,
+  onSuspectClick: PropTypes.func.isRequired,
+  onArrowClick: PropTypes.func.isRequired
 }
-
-module.exports = BoardDisplay

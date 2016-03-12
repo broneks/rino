@@ -1,13 +1,13 @@
-const util = require('../../shared/util')
-const constants = require('../../shared/constants')
+import {privateMap} from '../../shared/util'
+import {CARD_TYPE, PLAYER_TYPE} from '../../shared/constants'
 
-const Card = require('./base/Card')
+import Card from './base/Card'
 
-let internal = util.privateMap()
+let internal = privateMap()
 
-class EvidenceCard extends Card {
+export default class EvidenceCard extends Card {
   constructor (name) {
-    super(constants.CARD_TYPE.evidence, name)
+    super(CARD_TYPE.evidence, name)
 
     internal(this).isInHand = false
     internal(this).isIdentity = false
@@ -16,14 +16,14 @@ class EvidenceCard extends Card {
   pickUp (player) {
     internal(this).isInHand = player.getType()
 
-    if (player.getType() === constants.PLAYER_TYPE.killer) {
+    if (player.getType() === PLAYER_TYPE.killer) {
       internal(this).isIdentity = true
       player.setIdentityCard(this)
     }
   }
 
   exonerateSuspect (suspectCard) {
-    if (internal(this).isInHand === constants.PLAYER_TYPE.killer) return
+    if (internal(this).isInHand === PLAYER_TYPE.killer) return
 
     suspectCard.exonerate()
     this.setOutOfPlay()
@@ -35,5 +35,3 @@ class EvidenceCard extends Card {
     super.setOutOfPlay()
   }
 }
-
-module.exports = EvidenceCard

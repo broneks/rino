@@ -1,13 +1,13 @@
-const React = require('react')
-const ReactDOM = require('react-dom')
+import React from 'react'
+import {render as ReactRender} from 'react-dom'
 
-const HandDisplay = require('../../components/HandDisplay')
-const util = require('../../../shared/util')
-const DOM = require('../../DOM')
+import {privateMap} from '../../../shared/util'
+import DOM from '../../DOM'
+import HandDisplay from '../../components/HandDisplay'
 
-let internal = util.privateMap()
+let internal = privateMap()
 
-class PlayerHand {
+export default class PlayerHand {
   constructor (maxCards) {
     internal(this).maxCards = maxCards
     internal(this).hand = []
@@ -27,12 +27,10 @@ class PlayerHand {
   }
 
   render () {
-    ReactDOM.render(
+    ReactRender(
       <HandDisplay
         hand={internal(this).hand} />,
       DOM.hand
     )
   }
 }
-
-module.exports = PlayerHand

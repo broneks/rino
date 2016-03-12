@@ -3,8 +3,8 @@
 'use strict'
 
 const debug = require('debug')('rino')
-const app = require('../server/app').app
-const server = require('../server/app').server
+const app = require('../app/server/app').app
+const server = require('../app/server/app').server
 
 app.set('port', process.env.PORT || 9000)
 

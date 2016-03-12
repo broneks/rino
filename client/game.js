@@ -1,9 +1,9 @@
-const gameState = require('./gameState')
+import gameState from './gameState'
 
-const Board = require('./classes/Board')
-const Deck = require('./classes/Deck')
+import Board from './classes/Board'
+import Deck from './classes/Deck'
 
-const game = {
+export default {
   startClassName: 'game-on-good-luck',
 
   init (gameSettings) {
@@ -33,5 +33,3 @@ const game = {
     gameState.reset()
   }
 }
-
-module.exports = game

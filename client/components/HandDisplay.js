@@ -1,6 +1,6 @@
-const React = require('react')
+import React, {Component, PropTypes} from 'react'
 
-class HandDisplay extends React.Component {
+export default class HandDisplay extends Component {
   constructor (props) {
     super(props)
   }
@@ -27,7 +27,5 @@ class HandDisplay extends React.Component {
 }
 
 HandDisplay.propTypes = {
-  hand: React.PropTypes.array.isRequired
+  hand: PropTypes.array.isRequired
 }
-
-module.exports = HandDisplay

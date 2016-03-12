@@ -1,21 +1,21 @@
-const React = require('react')
-const ReactDOM = require('react-dom')
+import React from 'react'
+import {render as ReactRender} from 'react-dom'
 
-const util = require('../../shared/util')
-const constants = require('../../shared/constants')
-const gameState = require('../gameState')
-const DOM = require('../DOM')
+import {privateMap, chunk} from '../../shared/util'
+import {PLAYER_TYPE} from '../../shared/constants'
+import DOM from '../DOM'
+import gameState from '../gameState'
 
-const SuspectCard = require('./SuspectCard')
-const BoardDisplay = require('../components/BoardDisplay')
+import SuspectCard from './SuspectCard'
+import BoardDisplay from '../components/BoardDisplay'
 
-let internal = util.privateMap()
+let internal = privateMap()
 let moveDetails = null
 let instance = null
 
-class Board {
+export default class Board {
   constructor (cardNames) {
-    internal(this).cards = util.chunk(cardNames, 5).map(row => {
+    internal(this).cards = chunk(cardNames, 5).map(row => {
       return row.map(name => new SuspectCard(name))
     })
 
@@ -42,12 +42,12 @@ class Board {
     let cardName = card.getName()
 
     switch (player.getType()) {
-      case constants.PLAYER_TYPE.killer:
+      case PLAYER_TYPE.killer:
         player.kill(card)
         moveDetails = gameState.setMoveDetails(`killed ${ cardName }`)
         break
 
-      case constants.PLAYER_TYPE.inspector:
+      case PLAYER_TYPE.inspector:
         // inspector cannot arrest an exonerated suspect
         // skip re-rendering and don't end the current player's turn
         if (card.isExonerated()) return
@@ -144,7 +144,7 @@ class Board {
   }
 
   render () {
-    ReactDOM.render(
+    ReactRender(
       <BoardDisplay
         cards={internal(this).cards}
         onSuspectClick={this.onSuspectClick.bind(this)}
@@ -155,5 +155,3 @@ class Board {
     if (moveDetails) moveDetails()
   }
 }
-
-module.exports = Board

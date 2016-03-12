@@ -1,6 +1,6 @@
-const React = require('react')
+import React, {Component, PropTypes} from 'react'
 
-class BoardArrowDisplay extends React.Component {
+export default class BoardArrowDisplay extends Component {
   constructor (props) {
     super(props)
   }
@@ -26,10 +26,8 @@ class BoardArrowDisplay extends React.Component {
 }
 
 BoardArrowDisplay.propTypes = {
-  row: React.PropTypes.number,
-  column: React.PropTypes.number,
-  direction: React.PropTypes.string.isRequired,
-  click: React.PropTypes.func.isRequired
+  row: PropTypes.number,
+  column: PropTypes.number,
+  direction: PropTypes.string.isRequired,
+  click: PropTypes.func.isRequired
 }
-
-module.exports = BoardArrowDisplay

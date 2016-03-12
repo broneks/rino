@@ -39,5 +39,7 @@ todo.md
 # project specific
 #
 dist
-public/css
-public/js
+app/public/css
+app/public/js
+app/server
+app/shared

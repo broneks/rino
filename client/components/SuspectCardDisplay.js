@@ -1,6 +1,6 @@
-const React = require('react')
+import React, {Component, PropTypes} from 'react'
 
-class SuspectCardDisplay extends React.Component {
+export default class SuspectCardDisplay extends Component {
   constructor (props) {
     super(props)
 
@@ -51,11 +51,9 @@ class SuspectCardDisplay extends React.Component {
 }
 
 SuspectCardDisplay.propTypes = {
-  card: React.PropTypes.object.isRequired,
-  dataX: React.PropTypes.number.isRequired,
-  dataY: React.PropTypes.number.isRequired,
-  width: React.PropTypes.number.isRequired,
-  click: React.PropTypes.func.isRequired
+  card: PropTypes.object.isRequired,
+  dataX: PropTypes.number.isRequired,
+  dataY: PropTypes.number.isRequired,
+  width: PropTypes.number.isRequired,
+  click: PropTypes.func.isRequired
 }
-
-module.exports = SuspectCardDisplay

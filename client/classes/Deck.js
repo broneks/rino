@@ -1,17 +1,17 @@
-const React = require('react')
-const ReactDOM = require('react-dom')
+import React from 'react'
+import {render as ReactRender} from 'react-dom'
 
-const util = require('../../shared/util')
-const gameState = require('../gameState')
-const DOM = require('../DOM')
+import {privateMap} from '../../shared/util'
+import DOM from '../DOM'
+import gameState from '../gameState'
 
-const EvidenceCard = require('./EvidenceCard')
-const DeckDisplay = require('../components/DeckDisplay')
+import EvidenceCard from './EvidenceCard'
+import DeckDisplay from '../components/DeckDisplay'
 
-let internal = util.privateMap()
+let internal = privateMap()
 let instance = null
 
-class Deck {
+export default class Deck {
   constructor (cardNames) {
     this.setCards(cardNames)
 
@@ -40,7 +40,7 @@ class Deck {
   }
 
   render () {
-    ReactDOM.render(
+    ReactRender(
       <DeckDisplay
         cards={internal(this).cards}
         cardClick={this.cardClick.bind(this)} />,
@@ -48,5 +48,3 @@ class Deck {
     )
   }
 }
-
-module.exports = Deck

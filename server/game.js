@@ -1,11 +1,9 @@
-'use strict'
-
-const constants = require('../shared/constants')
-const util = require('../shared/util')
+import constants from '../shared/constants'
+import {shuffle} from '../shared/util'
 
 let gameSettings = null
 
-module.exports = {
+export default {
   getSettings () {
     return gameSettings
   },
@@ -19,8 +17,8 @@ module.exports = {
       gameSettings = {
         startTime: Date.now(),
         cardNames: {
-          suspect: util.shuffle(constants.CARD_NAMES),
-          evidence: util.shuffle(constants.CARD_NAMES)
+          suspect: shuffle(constants.CARD_NAMES),
+          evidence: shuffle(constants.CARD_NAMES)
         },
         turn: {
           number: 1,

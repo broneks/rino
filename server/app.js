@@ -1,19 +1,23 @@
-'use strict'
+import {createServer} from 'http'
+import {join, dirname} from 'path'
+import express from 'express'
+import favicon from 'serve-favicon'
 
-const express = require('express')
+import routes from './routes'
+import sockets from './sockets'
+
 const app = express()
-const server = require('http').createServer(app)
+const server = createServer(app)
 
-const path = require('path')
-const favicon = require('serve-favicon')
+const appDir = join(dirname(require.main.filename), '../app')
 
-app.set('views', path.join(__dirname, 'views'))
+app.set('views', join(appDir, 'views'))
 app.set('view engine', 'jade')
-app.use(express.static(path.join(__dirname, '../public')))
-app.use(favicon(path.join(__dirname, '../public/img/favicon.ico')))
+app.use(express.static(join(appDir, 'public')))
+app.use(favicon(join(appDir, 'public/img/favicon.ico')))
 
-require('./routes')(app, express.Router())
-require('./sockets')(server)
+routes(app, express.Router())
+sockets(server)
 
 app.use((req, res, next) => {
   const err = new Error('Not Found')
@@ -31,6 +35,7 @@ app.use((err, req, res, next) => {
   })
 })
 
+// old syntax for bin/www
 module.exports = {
   app,
   server

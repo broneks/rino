@@ -1,13 +1,13 @@
-const util = require('../../shared/util')
-const constants = require('../../shared/constants')
+import {privateMap} from '../../shared/util'
+import {CARD_TYPE} from '../../shared/constants'
 
-const Card = require('./base/Card')
+import Card from './base/Card'
 
-let internal = util.privateMap()
+let internal = privateMap()
 
-class SuspectCard extends Card {
+export default class SuspectCard extends Card {
   constructor (name) {
-    super(constants.CARD_TYPE.suspect, name)
+    super(CARD_TYPE.suspect, name)
 
     internal(this).isDeceased = false
     internal(this).isExonerated = false
@@ -46,5 +46,3 @@ class SuspectCard extends Card {
     super.setOutOfPlay()
   }
 }
-
-module.exports = SuspectCard

@@ -1,10 +1,9 @@
-'use strict'
+import socketIO from 'socket.io'
 
-const socketIO = require('socket.io')
-const users = require('./users')
-const game = require('./game')
+import users from './users'
+import game from './game'
 
-module.exports = (server) => {
+export default (server) => {
   const io = socketIO(server)
 
   io.on('connection', (socket) => {

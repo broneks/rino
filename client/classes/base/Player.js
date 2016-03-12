@@ -1,10 +1,9 @@
-const util = require('../../../shared/util')
+import {privateMap} from '../../../shared/util'
+import PlayerHand from './PlayerHand'
 
-const PlayerHand = require('./PlayerHand')
+let internal = privateMap()
 
-let internal = util.privateMap()
-
-class Player {
+export default class Player {
   constructor (type, handMax) {
     internal(this).type = type
     internal(this).identityCard = null
@@ -41,5 +40,3 @@ class Player {
   //   // pass
   // }
 }
-
-module.exports = Player

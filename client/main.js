@@ -1,8 +1,11 @@
-const socket = io()
+import util from '../shared/util'
+import gameState from './gameState'
+import game from './game'
 
-const util = require('../shared/util')
-const gameState = require('./gameState')
-const game = require('./game')
+import Killer from './classes/Killer'
+import Inspector from './classes/Inspector'
+
+const socket = io()
 
 const sessionId = window.sessionStorage.getItem('rinoUID') || util.generateUID()
 window.sessionStorage.setItem('rinoUID', sessionId)
@@ -25,7 +28,7 @@ socket.on('data:get-user', (user) => {
   if (ENV.debug) console.log('data:get-user: \n\t', user)
 
   gameState.setUser(user)
-  gameState.setPlayer(user.playerType)
+  gameState.setPlayer(user.playerType, Killer, Inspector)
 })
 
 socket.on('data:get-opponent', (opponent) => {

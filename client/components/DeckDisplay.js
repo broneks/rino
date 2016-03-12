@@ -1,6 +1,6 @@
-const React = require('react')
+import React, {Component, PropTypes} from 'react'
 
-class DeckDisplay extends React.Component {
+export default class DeckDisplay extends Component {
   constructor (props) {
     super(props)
 
@@ -42,8 +42,6 @@ class DeckDisplay extends React.Component {
 }
 
 DeckDisplay.propTypes = {
-  cards: React.PropTypes.array.isRequired,
-  cardClick: React.PropTypes.func.isRequired
+  cards: PropTypes.array.isRequired,
+  cardClick: PropTypes.func.isRequired
 }
-
-module.exports = DeckDisplay

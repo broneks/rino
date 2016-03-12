@@ -1,12 +1,12 @@
-const constants = require('../../shared/constants')
+import {PLAYER_TYPE} from '../../shared/constants'
 
-const Player = require('./base/Player')
+import Player from './base/Player'
 
 let instance = null
 
-class Inspector extends Player {
+export default class Inspector extends Player {
   constructor () {
-    super(constants.PLAYER_TYPE.inspector, 4)
+    super(PLAYER_TYPE.inspector, 4)
 
     // singleton
     if (!instance) instance = this
@@ -23,5 +23,3 @@ class Inspector extends Player {
     // TODO
   }
 }
-
-module.exports = Inspector

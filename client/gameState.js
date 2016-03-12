@@ -1,11 +1,8 @@
+import util from '../shared/util'
+import {PLAYER_TYPE} from '../shared/constants'
+import DOM from './DOM'
+
 const socket = io()
-
-const constants = require('../shared/constants')
-const util = require('../shared/util')
-const DOM = require('./DOM')
-
-const Killer = require('./classes/Killer')
-const Inspector = require('./classes/Inspector')
 
 let state = {
   user: null,
@@ -17,11 +14,11 @@ let state = {
   turn: {}
 }
 
-const gameState = {
-  listen (socketEvent, callback) {
+export default {
+  listen (socketEvent, callback, context = this) {
     if (!socketEvent || !callback) return
 
-    socket.on(socketEvent, callback)
+    socket.on(socketEvent, callback.bind(context))
   },
 
   endTurn () {
@@ -72,15 +69,15 @@ const gameState = {
     state.cards.deck = newDeck
   },
 
-  setPlayer (playerType) {
+  setPlayer (playerType, Killer, Inspector) {
     if (state.player) return
 
     switch (playerType) {
-      case constants.PLAYER_TYPE.killer:
+      case PLAYER_TYPE.killer:
         state.player = new Killer()
         state.playerType = playerType
         break
-      case constants.PLAYER_TYPE.inspector:
+      case PLAYER_TYPE.inspector:
         state.player = new Inspector()
         state.playerType = playerType
         break
@@ -137,7 +134,7 @@ const gameState = {
     state.turn = turn
 
     if (ENV.debug) {
-      console.log(`turn: ${ state.turn.number } - ${ state.turn.player } - ${ gameState.isPlayersTurn() }`)
+      console.log(`turn: ${ state.turn.number } - ${ state.turn.player } - ${ this.isPlayersTurn() }`)
     }
   },
 
@@ -156,5 +153,3 @@ const gameState = {
     })
   }
 }
-
-module.exports = gameState

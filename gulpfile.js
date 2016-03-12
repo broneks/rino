@@ -4,6 +4,7 @@ const config = require('./config.json')
 const gulp = require('gulp')
 const webpackStream = require('webpack-stream')
 const webpack = require('webpack')
+const babel = require('gulp-babel')
 const sass = require('gulp-sass')
 const autoprefixer = require('gulp-autoprefixer')
 const plumber = require('gulp-plumber')
@@ -12,7 +13,9 @@ const browserSync = require('browser-sync').create()
 
 const tasks = [
   'standard',
-  'scripts',
+  'client-scripts',
+  'server-scripts',
+  'shared-scripts',
   'styles'
 ]
 
@@ -48,7 +51,7 @@ const standardConfig = {
     'io'
   ],
   ignore: [
-    'public/'
+    'app/'
   ],
   parser: 'babel-eslint'
 }
@@ -63,12 +66,26 @@ gulp.task('standard', () => {
     .pipe(standard.reporter('default'))
 })
 
-gulp.task('scripts', () => {
+gulp.task('client-scripts', () => {
   gulp.src('client/main.js')
     .pipe(plumber())
     .pipe(webpackStream(webpackConfig))
-    .pipe(gulp.dest('public/js'))
-    .pipe(browserSync.stream());
+    .pipe(gulp.dest('app/public/js'))
+    .pipe(browserSync.stream())
+})
+
+gulp.task('server-scripts', () => {
+  gulp.src('server/**/*.js')
+    .pipe(plumber())
+    .pipe(babel())
+    .pipe(gulp.dest('app/server'));
+})
+
+gulp.task('shared-scripts', () => {
+  gulp.src('shared/**/*.js')
+    .pipe(plumber())
+    .pipe(babel())
+    .pipe(gulp.dest('app/shared'));
 })
 
 gulp.task('styles', () => {
@@ -81,8 +98,8 @@ gulp.task('styles', () => {
     .pipe(sass({
       outputStyle: 'compressed'
     }))
-    .pipe(gulp.dest('public/css'))
-    .pipe(browserSync.stream());
+    .pipe(gulp.dest('app/public/css'))
+    .pipe(browserSync.stream())
 })
 
 gulp.task('watch', tasks, () => {
@@ -96,7 +113,9 @@ gulp.task('watch', tasks, () => {
     'server/**/*.js',
     'shared/**/*.js'
   ], ['standard'])
-  gulp.watch('client/**/*.js', ['scripts'])
+  gulp.watch('client/**/*.js', ['client-scripts'])
+  gulp.watch('server/**/*.js', ['server-scripts'])
+  gulp.watch('shared/**/*.js', ['shared-scripts'])
   gulp.watch('sass/**/*.scss', ['styles'])
   gulp.watch('server/**/*.jade').on('change', browserSync.reload)
 })
