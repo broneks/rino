@@ -10,7 +10,7 @@ export const CARD_TYPE = {
 
 export const CARD_NAMES = [
   'Albin', 'Benjamin', 'Candace', 'Duncan', 'Eleanor',
-  'Felix', 'Geneva', 'Hugo', 'Isaac', 'Joy',
+  'Felix', 'Geneva', 'Hugo', 'Isaac', 'Joan',
   'Karin', 'Lucija', 'Maurice', 'Nico', 'Oskar',
   'Phillip', 'Quinton', 'Rafael', 'Shawna', 'Toby',
   'Ulysses', 'Violet', 'Wyatt', 'Yvonne', 'Zoe'
