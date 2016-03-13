@@ -1,6 +1,11 @@
+import React from 'react'
+import {render as ReactRender} from 'react-dom'
+
 import util from '../shared/util'
 import {PLAYER_TYPE} from '../shared/constants'
 import DOM from './DOM'
+
+import ClockDisplay from './components/ClockDisplay'
 
 const socket = io()
 
@@ -119,15 +124,18 @@ export default {
     }
   },
 
-  setClock (startTime) {
-    // TODO
-    // let elapsedTime = (Date.now() - startTime)
+  setClock (start) {
+    let delta
 
-    // const tick = () => {
-    //   elapsedTime += 1
-    // }
+    state.clockInterval = window.setInterval(() => {
+      delta = Math.floor((Date.now() - start) / 1000)
 
-    // state.clockInterval = window.setInterval(tick, 1000)
+      ReactRender(
+        <ClockDisplay time={
+          util.formatTime((Math.floor(delta / 3600) % 24), (Math.floor(delta / 60) % 60), (delta % 60))
+        } />
+      , DOM.clock)
+    }, 1000)
   },
 
   setTurn (turn) {

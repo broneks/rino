@@ -59,6 +59,10 @@ export function removeChildren (node) {
   }
 }
 
+export function formatTime (...time) {
+  return time.map(num => (num < 10 ? '0' : '') + num.toString())
+}
+
 //
 // grouped exports
 //
@@ -72,5 +76,6 @@ export const serverUtils = {
 export default Object.assign({
   generateUID,
   privateMap,
-  removeChildren
+  removeChildren,
+  formatTime
 }, serverUtils)

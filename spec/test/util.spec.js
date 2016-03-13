@@ -66,13 +66,23 @@ describe('-- util --', () => {
 
   describe('privateMap', () => {
     let internal
+    let obj
 
     beforeEach(() => {
       internal = util.privateMap()
+      obj = {}
     })
 
     it('returns a function', () => {
       expect(internal).toEqual(jasmine.any(Function))
+    })
+
+    it('sets and gets a value paired to an object', () => {
+      internal(obj).hello = 'hello'
+      internal(obj).world = 'world'
+
+      expect(internal(obj).hello).toEqual('hello')
+      expect(internal(obj).world).toEqual('world')
     })
   })
 })
