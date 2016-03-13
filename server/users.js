@@ -17,6 +17,9 @@ export default {
     let user
     let playerType
 
+    // TODO -- refactor sockets.js
+    if (this.exists(sessionId)) return user
+
     if (this.killerIsAssigned()) {
       playerType = PLAYER_TYPE.inspector
     } else {
@@ -59,5 +62,9 @@ export default {
         users.splice(index, 1)
       }
     })
+  },
+
+  _setUsers (newUsers) {
+    users = newUsers
   }
 }

@@ -48,9 +48,8 @@ describe('-- util --', () => {
 
     it('capitalizes the first letter', () => {
       let capitalized = util.capitalizeFirstLetter(str)
-      let expected = 'Hello world'
 
-      expect(capitalized).toEqual(expected)
+      expect(capitalized).toEqual('Hello world')
     })
   })
 
@@ -83,6 +82,31 @@ describe('-- util --', () => {
 
       expect(internal(obj).hello).toEqual('hello')
       expect(internal(obj).world).toEqual('world')
+    })
+  })
+
+  describe('formatTime', () => {
+    let hours
+    let minutes
+    let seconds
+
+    beforeEach(() => {
+      hours = 1
+      minutes = 2
+      seconds = 50
+    })
+
+    it('should return an array of strings', () => {
+      let formatted = util.formatTime(hours, minutes, seconds)
+
+      expect(formatted.every(item => typeof item === 'string'))
+    })
+
+    it('should pad each item with a zero', () => {
+      let formatted = util.formatTime(hours, minutes, seconds)
+      let expected = ['01', '02', '50']
+
+      expect(formatted).toEqual(expected)
     })
   })
 })
