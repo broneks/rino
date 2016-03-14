@@ -1,6 +1,6 @@
 import util from '../../shared/util'
 
-describe('-- util --', () => {
+describe('-- util - shared --', () => {
   describe('shuffle', () => {
     let original
 
@@ -14,7 +14,7 @@ describe('-- util --', () => {
       expect(shuffled).not.toEqual(original)
     })
 
-    it('shuffled array exact same items as original', () => {
+    it('shuffled array has exact same items as original', () => {
       let shuffled = util.shuffle(original)
 
       expect(shuffled.every((item) => original.indexOf(item) > -1)).toBeTruthy()

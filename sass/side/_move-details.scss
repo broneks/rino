@@ -1,11 +1,13 @@
 #move-details {
-  &:not(:empty) {
-    padding: 5px;
-  }
-  &.killer {
-    border: 1px solid red;
-  }
-  &.inspector {
-    border: 1px solid blue;
+  .move-details-wrapper {
+    &:not(:empty) {
+      padding: 5px;
+    }
+    &.killer {
+      border: 1px solid red;
+    }
+    &.inspector {
+      border: 1px solid blue;
+    }
   }
 }

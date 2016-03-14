@@ -17,7 +17,6 @@ export default {
     let user
     let playerType
 
-    // TODO -- refactor sockets.js
     if (this.exists(sessionId)) return user
 
     if (this.killerIsAssigned()) {
@@ -43,7 +42,7 @@ export default {
 
   getBySessionId (sessionId) {
     return users.length
-      ? users.filter(user => user.sessionId === sessionId)[0]
+      ? users.filter(user => user.sessionId === sessionId)[0] || null
       : null
   },
 

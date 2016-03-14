@@ -2,10 +2,11 @@ import React from 'react'
 import {render as ReactRender} from 'react-dom'
 
 import util from '../shared/util'
-import {PLAYER_TYPE} from '../shared/constants'
+import constants from '../shared/constants'
 import DOM from './DOM'
 
 import ClockDisplay from './components/ClockDisplay'
+import MoveDetailsDisplay from './components/MoveDetailsDisplay'
 
 const socket = io()
 
@@ -78,11 +79,11 @@ export default {
     if (state.player) return
 
     switch (playerType) {
-      case PLAYER_TYPE.killer:
+      case constants.PLAYER_TYPE.killer:
         state.player = new Killer()
         state.playerType = playerType
         break
-      case PLAYER_TYPE.inspector:
+      case constants.PLAYER_TYPE.inspector:
         state.player = new Inspector()
         state.playerType = playerType
         break
@@ -106,21 +107,17 @@ export default {
   },
 
   setMoveDetails (description) {
-    if (!description) return
+    if (!description) return constants.NOOP
 
-    let moveDetails = {
-      description,
-      player: state.playerType
-    }
+    let player = state.turn.player
 
-    // returns a function that, when called, renders the move details
     return () => {
-      DOM.moveDetails.className = moveDetails.player
-      DOM.moveDetails.textContent = `The ${
-        util.capitalizeFirstLetter(moveDetails.player)
-      } ${
-        moveDetails.description
-      }`
+      ReactRender(
+        <MoveDetailsDisplay
+          description={description}
+          player={player} />,
+        DOM.moveDetails
+      )
     }
   },
 
