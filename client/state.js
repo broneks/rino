@@ -140,8 +140,10 @@ export default {
 
     if (this.isPlayersTurn()) {
       document.body.classList.add('is-players-turn')
+      DOM.turn.textContent = 'Your turn'
     } else {
       document.body.classList.remove('is-players-turn')
+      DOM.turn.textContent = ''
     }
 
     if (ENV.debug) {
