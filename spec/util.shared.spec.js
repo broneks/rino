@@ -1,4 +1,4 @@
-import util from '../../shared/util'
+import util from '../shared/util'
 
 describe('-- util - shared --', () => {
   describe('shuffle', () => {

@@ -1,5 +1,5 @@
-import constants from '../../shared/constants'
-import game from '../../server/game'
+import constants from '../shared/constants'
+import game from '../server/game'
 
 describe('-- game - server --', () => {
   describe('init', () => {

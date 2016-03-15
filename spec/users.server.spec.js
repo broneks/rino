@@ -1,5 +1,5 @@
-import {PLAYER_TYPE} from '../../shared/constants'
-import users from '../../server/users'
+import {PLAYER_TYPE} from '../shared/constants'
+import users from '../server/users'
 
 describe('-- users - server --', () => {
   beforeEach(() => {
@@ -49,7 +49,7 @@ describe('-- users - server --', () => {
       sessionId = 1
     })
 
-    it('should add a user object with correct properties', () => {
+    it('should add and return a user object with correct properties', () => {
       let id = 123
 
       let user = users.add(id, sessionId)
@@ -145,6 +145,129 @@ describe('-- users - server --', () => {
       users.add(123, 1)
 
       expect(users.getOpponent()).toBe(null)
+    })
+  })
+
+  describe('join', () => {
+    let user
+    let user2
+
+    beforeEach(() => {
+      user = {
+        id: 1,
+        sessionId: 2,
+        playerType: PLAYER_TYPE.killer,
+        disconnected: false,
+        removed: false
+      }
+      user2 = {
+        id: 2,
+        sessionId: 3,
+        playerType: PLAYER_TYPE.inspector,
+        disconnected: false,
+        removed: false
+      }
+
+      users._setUsers([user])
+    })
+
+    it('should return a promise', () => {
+      expect(users.join(1, 2)).toEqual(jasmine.any(Promise))
+    })
+
+    it('should resolve with an object that has user and isNewUser', (done) => {
+      users.join(1, 2)
+        .then((res) => {
+          expect(res).toBeDefined()
+          expect(res.hasOwnProperty('user')).toBeTruthy()
+          expect(res.hasOwnProperty('isNewUser')).toBeTruthy()
+        })
+        .then(done)
+    })
+
+    it('should resolve and return an existing user', (done) => {
+      users.join(1, 2)
+        .then((res) => {
+          expect(res.user).toEqual(user)
+          expect(res.isNewUser).toBeFalsy()
+        })
+        .then(done)
+    })
+
+    it('should set disconnected property to false when returning an existing user', (done) => {
+      user.disconnected = true
+
+      users.join(1, 2)
+        .then((res) => {
+          expect(res.user.disconnected).toBeFalsy()
+        })
+        .then(done)
+    })
+
+    it('should resolve and return a new user', (done) => {
+      users.join(2, 3)
+        .then((res) => {
+          expect(res.user).not.toEqual(user)
+          expect(res.isNewUser).toBeTruthy()
+        })
+        .then(done)
+    })
+
+    it('should reject if user does not exist and max has been reached', (done) => {
+      users._setUsers([user, user2])
+
+      users.join(3, 4)
+        .then(done.fail)
+        .catch(done)
+    })
+  })
+
+  describe('disconnect', () => {
+    let user
+
+    beforeEach(() => {
+      user = {
+        id: 1,
+        sessionId: 2,
+        playerType: PLAYER_TYPE.killer,
+        disconnected: true,
+        removed: false
+      }
+
+      users._setUsers([user])
+    })
+
+    it('should return a promise', () => {
+      expect(users.disconnect(user, 0)).toEqual(jasmine.any(Promise))
+    })
+
+    it('should resolve and remove the user', (done) => {
+      users.disconnect(user, 0)
+        .then(() => {
+          expect(users.exists(user.sessionId)).toBeFalsy()
+        })
+        .then(done)
+    })
+
+    it('should reject if a user has reconnected after the disconnect timeout started', (done) => {
+      let delay = 10
+
+      setInterval(() => user.disconnected = false, delay / 2)
+
+      users.disconnect(user, delay)
+        .then(done.fail)
+        .catch(() => {
+          expect(users.exists(user.sessionId)).toBeTruthy()
+        })
+        .then(done)
+    })
+
+    it('should reject if user has removed property set to true', (done) => {
+      user.removed = true
+
+      users.disconnect(user)
+        .then(done.fail)
+        .catch(done)
     })
   })
 

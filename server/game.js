@@ -26,6 +26,8 @@ export default {
         }
       }
     }
+
+    return gameSettings
   },
 
   nextTurn () {

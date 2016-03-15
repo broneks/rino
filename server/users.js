@@ -1,6 +1,7 @@
 import {PLAYER_TYPE} from '../shared/constants'
 
 let users = []
+let disconnectTimeout = null
 
 export default {
   max: 2,
@@ -11,6 +12,22 @@ export default {
 
   exists (sessionId) {
     return !!users.length && users.map(user => user.sessionId).indexOf(sessionId) > -1
+  },
+
+  killerIsAssigned () {
+    return users.length && (users.map(user => user.playerType).indexOf('killer') > -1)
+  },
+
+  getBySessionId (sessionId) {
+    return users.length
+      ? users.filter(user => user.sessionId === sessionId)[0] || null
+      : null
+  },
+
+  getOpponent (sessionId) {
+    if (!this.maxReached()) return null
+
+    return users.filter(user => user.sessionId !== sessionId)[0]
   },
 
   add (id, sessionId) {
@@ -36,20 +53,45 @@ export default {
     return user
   },
 
-  killerIsAssigned () {
-    return users.length && (users.map(user => user.playerType).indexOf('killer') > -1)
+  join (id, sessionId) {
+    return new Promise((resolve, reject) => {
+      let user
+
+      if (this.exists(sessionId)) {
+        user = this.getBySessionId(sessionId)
+        user.disconnected = false
+        resolve({
+          user,
+          isNewUser: false
+        })
+      } else if (!this.maxReached()) {
+        user = this.add(id, sessionId)
+        resolve({
+          user,
+          isNewUser: true
+        })
+      } else {
+        reject()
+      }
+    })
   },
 
-  getBySessionId (sessionId) {
-    return users.length
-      ? users.filter(user => user.sessionId === sessionId)[0] || null
-      : null
-  },
+  disconnect (user, delay = 3000) {
+    return new Promise((resolve, reject) => {
+      if (user.removed) reject()
 
-  getOpponent (sessionId) {
-    if (!this.maxReached()) return null
+      user.disconnected = true
 
-    return users.filter(user => user.sessionId !== sessionId)[0]
+      clearTimeout(disconnectTimeout)
+      disconnectTimeout = setTimeout(() => {
+        if (user.disconnected) {
+          this.removeDisconnected()
+          resolve()
+        } else {
+          reject()
+        }
+      }, delay)
+    })
   },
 
   removeDisconnected () {

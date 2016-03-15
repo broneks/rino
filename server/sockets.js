@@ -7,49 +7,35 @@ export default (server) => {
   const io = socketIO(server)
 
   io.on('connection', (socket) => {
-    const id = socket.id
     let user = null
 
     socket.on('event:join', (sessionId) => {
-      // existing player is rejoining
-      if (users.exists(sessionId)) {
-        let gameSettings = game.getSettings()
+      users.join(socket.id, sessionId)
+        .then((res) => {
+          user = res.user
 
-        user = users.getBySessionId(sessionId)
-        user.disconnected = false
+          io.to(socket.id).emit('data:get-user', user)
+          io.to(socket.id).emit('data:get-opponent', users.getOpponent(sessionId))
 
-        io.to(id).emit('data:get-user', user)
-        io.to(id).emit('data:get-opponent', users.getOpponent(sessionId))
+          if (res.isNewUser) {
+            socket.broadcast.emit('event:player-connected', user)
 
-        if (gameSettings) io.to(id).emit('data:game-init', gameSettings)
-      } else if (!users.maxReached()) {
-        user = users.add(id, sessionId)
+            if (users.maxReached()) io.emit('data:game-init', game.init())
+          } else {
+            let gameSettings = game.getSettings()
 
-        socket.broadcast.emit('event:player-connected', user)
-
-        io.to(id).emit('data:get-user', user)
-        io.to(id).emit('data:get-opponent', users.getOpponent(sessionId))
-
-        // final player has joined
-        if (users.maxReached()) {
-          game.init()
-          io.emit('data:game-init', game.getSettings())
-        }
-      }
+            if (gameSettings) io.to(socket.id).emit('data:game-init', gameSettings)
+          }
+        })
     })
 
     socket.on('disconnect', () => {
-      if (user) {
-        user.disconnected = true
-        setTimeout(() => {
-          if (user.disconnected && !user.removed) {
-            users.removeDisconnected()
-            io.emit('event:player-disconnected')
-            game.reset()
-            socket.disconnect()
-          }
-        }, 4000)
-      }
+      users.disconnect(user)
+        .then(() => {
+          io.emit('event:player-disconnected')
+          socket.disconnect()
+          game.reset()
+        })
     })
 
     socket.on('state:end-turn', () => {
