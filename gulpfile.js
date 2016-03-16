@@ -1,15 +1,16 @@
 'use strict'
 
-const config = require('./config.json')
 const gulp = require('gulp')
 const webpackStream = require('webpack-stream')
-const webpack = require('webpack')
 const babel = require('gulp-babel')
 const sass = require('gulp-sass')
 const autoprefixer = require('gulp-autoprefixer')
 const plumber = require('gulp-plumber')
 const standard = require('gulp-standard')
 const browserSync = require('browser-sync').create()
+
+const webpackConfig = require('./webpack.conf')
+const standardConfig = require('./standard.conf')
 
 const tasks = [
   'standard',
@@ -18,43 +19,6 @@ const tasks = [
   'shared-scripts',
   'styles'
 ]
-
-const webpackConfig = {
-  module: {
-    loaders: [
-      {
-        test: /\.js$/,
-        exclude: /node_modules/,
-        loader: 'babel-loader'
-      }
-    ]
-  },
-  output: {
-    filename: 'main.js'
-  },
-  plugins: [
-    new webpack.DefinePlugin({
-      ENV: config
-    }),
-    new webpack.optimize.UglifyJsPlugin({
-      compress: {
-        warnings: false
-      }
-    })
-  ],
-  devtool: 'inline-source-maps'
-}
-
-const standardConfig = {
-  globals: [
-    'ENV',
-    'io'
-  ],
-  ignore: [
-    'app/'
-  ],
-  parser: 'babel-eslint'
-}
 
 gulp.task('standard', () => {
   gulp.src([
