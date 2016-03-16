@@ -1,4 +1,4 @@
-import DOM, {updateDOM} from '../../client/DOM'
+import DOM from '../../client/DOM'
 
 export default {
   basicDOM () {
