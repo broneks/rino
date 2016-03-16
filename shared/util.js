@@ -73,9 +73,13 @@ export const serverUtils = {
   capitalizeFirstLetter
 }
 
-export default Object.assign({
+export default {
+  shuffle,
+  chunk,
+  capitalizeFirstLetter,
+
   generateUID,
   privateMap,
   removeChildren,
   formatTime
-}, serverUtils)
+}
