@@ -1,7 +1,10 @@
-#game-deck {
-  border: 1px solid pink;
+$deck-cards-tilt: 25px / 2;
 
+#game-deck {
+  width: $deck-card-width + $deck-cards-tilt;
   position: relative;
+  margin: 0 auto;
+  padding-right: $deck-cards-tilt;
   perspective: 100vmax;
   perspective-origin: center center;
   transform-style: preserve-3d;
@@ -9,12 +12,14 @@
 
   .game-deck-wrapper {
     &.is-empty {
+      pointer-events: none;
       border: 1px dashed $card-border-color;
       border-radius: $card-radius;
       height: $card-height;
       width: $deck-card-width;
       text-align: center;
       font-style: italic;
+      font-size: 0.8em;
 
       .message {
         position: relative;

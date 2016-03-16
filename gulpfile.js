@@ -117,7 +117,7 @@ gulp.task('watch', tasks, () => {
   gulp.watch('server/**/*.js', ['server-scripts'])
   gulp.watch('shared/**/*.js', ['shared-scripts'])
   gulp.watch('sass/**/*.scss', ['styles'])
-  gulp.watch('server/**/*.jade').on('change', browserSync.reload)
+  gulp.watch('app/**/*.jade').on('change', browserSync.reload)
 })
 
 gulp.task('default', tasks)

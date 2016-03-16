@@ -1,0 +1,29 @@
+#side {
+  display: flex;
+  flex-direction: column;
+
+  .section {
+    flex: 1;
+    position: relative;
+    padding: 0.5rem;
+  }
+
+  .row {
+    display: flex;
+    flex-direction: row;
+
+    & + .row {
+      margin-top: 0.5rem;
+    }
+  }
+
+  .top {
+    text-align: center;
+  }
+
+  .middle {
+  }
+
+  .bottom {
+  }
+}

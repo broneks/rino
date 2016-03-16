@@ -1,7 +1,9 @@
 @import 'reset';
 @import 'variables';
 
+@import 'font';
 @import 'layout';
+
 @import 'is-players-turn';
 
 @import 'main/card';
@@ -11,5 +13,8 @@
 @import 'main/board/suspect-card';
 @import 'main/hand/hand.scss';
 
-@import 'side/deck/deck';
-@import 'side/move-details';
+@import 'side/sections';
+@import 'side/top/clock';
+@import 'side/top/turn';
+@import 'side/top/move-details';
+@import 'side/bottom/deck';

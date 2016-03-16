@@ -6,9 +6,14 @@ block content
       #game-board
       #player-hand
     #side
-      #turn
-      #clock
-      #move-details
-      #game-deck
+      .top.section
+        .row
+          #turn
+          #clock
+        .row
+          #move-details
+      .middle.section
+      .bottom.section
+        #game-deck
   #idle-overlay
     h1.message Waiting for #[span.other-player opponent] to connect...

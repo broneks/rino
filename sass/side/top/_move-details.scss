@@ -1,7 +1,8 @@
 #move-details {
+  flex: 1;
   .move-details-wrapper {
     &:not(:empty) {
-      padding: 5px;
+      padding: 0.5rem;
     }
     &.killer {
       border: 1px solid red;

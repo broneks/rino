@@ -34,7 +34,7 @@ export default class DeckDisplay extends Component {
     } else {
       return (
         <div className='game-deck-wrapper is-empty'>
-          <div className='message'>Deck is empty...</div>
+          <div className='message'>Deck is empty</div>
         </div>
       )
     }
