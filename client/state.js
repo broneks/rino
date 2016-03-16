@@ -35,34 +35,6 @@ export default {
     socket.emit('state:card-picked-up')
   },
 
-  getBoard () {
-    return state.cards.board
-  },
-
-  getDeck () {
-    return state.cards.deck
-  },
-
-  getPlayer () {
-    return state.player
-  },
-
-  getPlayerType () {
-    return state.playerType
-  },
-
-  getUser () {
-    return state.user
-  },
-
-  getOpponent () {
-    return state.opponent
-  },
-
-  getTurn () {
-    return state.turn
-  },
-
   isPlayersTurn () {
     return state.turn.player === state.playerType
   },
@@ -164,5 +136,37 @@ export default {
     Object.keys(DOM).forEach((key) => {
       util.removeChildren(DOM[key])
     })
+  },
+
+  getBoard () {
+    return state.cards.board
+  },
+
+  getDeck () {
+    return state.cards.deck
+  },
+
+  getPlayer () {
+    return state.player
+  },
+
+  getPlayerType () {
+    return state.playerType
+  },
+
+  getUser () {
+    return state.user
+  },
+
+  getOpponent () {
+    return state.opponent
+  },
+
+  getTurn () {
+    return state.turn
+  },
+
+  _setState (newState) {
+    state = newState
   }
 }

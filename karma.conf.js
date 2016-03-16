@@ -4,18 +4,18 @@ const webpack = require('webpack')
 const webpackConfig = require('./webpack.conf')
 
 const mock = {
-  io: function () {}
+  io: () => {}
 }
 
-module.exports = function(config) {
+module.exports = (config) => {
   config.set({
     basePath: '',
     frameworks: ['jasmine'],
     files: [
-      'spec/support/tests.webpack.js'
+      'spec/**/*.client.spec.js'
     ],
     preprocessors: {
-      'spec/support/tests.webpack.js': ['webpack']
+      'spec/**/*.client.spec.js': ['webpack']
     },
     webpack: {
       module: webpackConfig.module,
@@ -24,14 +24,14 @@ module.exports = function(config) {
           io: mock.io
         })
       ],
-      devtool: 'inline-source-map'
+      devtool: 'inline-source-maps'
     },
     webpackMiddleware: {
       noInfo: true
     },
     autoWatch: true,
     reporters: ['progress'],
-    browsers: ['PhantomJS'],
+    browsers: ['Chrome'],
     port: 9876,
     colors: true,
     logLevel: config.LOG_INFO,
