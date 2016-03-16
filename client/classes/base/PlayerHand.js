@@ -30,7 +30,7 @@ export default class PlayerHand {
     ReactRender(
       <HandDisplay
         hand={internal(this).hand} />,
-      DOM.hand
+      document.getElementById(DOM.hand)
     )
   }
 }

@@ -3,10 +3,6 @@
 const webpack = require('webpack')
 const webpackConfig = require('./webpack.conf')
 
-const mock = {
-  io: () => {}
-}
-
 module.exports = (config) => {
   config.set({
     basePath: '',
@@ -21,7 +17,7 @@ module.exports = (config) => {
       module: webpackConfig.module,
       plugins: [
         new webpack.DefinePlugin({
-          io: mock.io
+          io: () => {}
         })
       ],
       devtool: 'inline-source-maps'

@@ -149,7 +149,7 @@ export default class Board {
         cards={internal(this).cards}
         onSuspectClick={this.onSuspectClick.bind(this)}
         onArrowClick={this.onArrowClick.bind(this)} />,
-      DOM.board
+      document.getElementById(DOM.board)
     )
 
     if (moveDetails) moveDetails()

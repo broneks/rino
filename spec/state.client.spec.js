@@ -1,3 +1,5 @@
+import mock from './support/mock'
+
 import {PLAYER_TYPE} from '../shared/constants'
 import state from '../client/state'
 
@@ -5,6 +7,8 @@ import Killer from '../client/classes/Killer'
 import Inspector from '../client/classes/Inspector'
 
 describe('-- state - client --', () => {
+  mock.basicDOM()
+
   describe('isPlayersTurn', () => {
     let turn
 
@@ -42,8 +46,10 @@ describe('-- state - client --', () => {
 
   })
 
-  xdescribe('setPlayer', () => {
-    
+  describe('setPlayer', () => {
+    it('should set player as killer', () => {
+      state.setPlayer(PLAYER_TYPE.killer, Killer, Inspector)
+    })
   })
 
   xdescribe('setUser', () => {

@@ -88,12 +88,13 @@ export default {
         <MoveDetailsDisplay
           description={description}
           player={player} />,
-        DOM.moveDetails
+        document.getElementById(DOM.moveDetails)
       )
     }
   },
 
   setClock (start) {
+    let DOMclock = document.getElementById(DOM.clock)
     let delta
 
     state.clockInterval = window.setInterval(() => {
@@ -102,20 +103,22 @@ export default {
       ReactRender(
         <ClockDisplay time={
           util.formatTime((Math.floor(delta / 3600) % 24), (Math.floor(delta / 60) % 60), (delta % 60))
-        } />
-      , DOM.clock)
+        } />,
+        DOMclock
+      )
     }, 1000)
   },
 
   setTurn (turn) {
+    let DOMturn = document.getElementById(DOM.turn)
     state.turn = turn
 
     if (this.isPlayersTurn()) {
       document.body.classList.add('is-players-turn')
-      DOM.turn.textContent = 'Your turn'
+      DOMturn.textContent = 'Your turn'
     } else {
       document.body.classList.remove('is-players-turn')
-      DOM.turn.textContent = ''
+      DOMturn.textContent = ''
     }
 
     if (ENV.debug) {
@@ -134,7 +137,7 @@ export default {
     state.turn = {}
 
     Object.keys(DOM).forEach((key) => {
-      util.removeChildren(DOM[key])
+      util.removeChildren(document.getElementById(DOM[key]))
     })
   },
 

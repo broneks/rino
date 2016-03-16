@@ -44,7 +44,7 @@ export default class Deck {
       <DeckDisplay
         cards={internal(this).cards}
         cardClick={this.cardClick.bind(this)} />,
-      DOM.deck
+      document.getElementById(DOM.deck)
     )
   }
 }
