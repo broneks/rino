@@ -18,6 +18,7 @@ export default class Board {
     internal(this).cards = chunk(cardNames, 5).map(row => {
       return row.map(name => new SuspectCard(name))
     })
+    internal(this).DOMboard = document.getElementById(DOM.board)
 
     this.render()
 
@@ -149,7 +150,7 @@ export default class Board {
         cards={internal(this).cards}
         onSuspectClick={this.onSuspectClick.bind(this)}
         onArrowClick={this.onArrowClick.bind(this)} />,
-      document.getElementById(DOM.board)
+      internal(this).DOMboard
     )
 
     if (moveDetails) moveDetails()

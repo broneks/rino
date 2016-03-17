@@ -11,6 +11,7 @@ export default class PlayerHand {
   constructor (maxCards) {
     internal(this).maxCards = maxCards
     internal(this).hand = []
+    internal(this).DOMhand = document.getElementById(DOM.hand)
 
     this.render()
   }
@@ -30,7 +31,7 @@ export default class PlayerHand {
     ReactRender(
       <HandDisplay
         hand={internal(this).hand} />,
-      document.getElementById(DOM.hand)
+      internal(this).DOMhand
     )
   }
 }

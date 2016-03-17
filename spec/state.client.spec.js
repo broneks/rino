@@ -122,22 +122,6 @@ describe('-- state - client --', () => {
     })
   })
 
-  xdescribe('setMoveDetails', () => {
-    it('should render the move details', () => {
-      stateObj.turn = {
-        number: 1,
-        player: PLAYER_TYPE.killer
-      }
-      state._setState(stateObj)
-
-      state.setMoveDetails('is just a test dummy')()
-
-      console.log(document.getElementById(DOM.moveDetails))
-
-      // TODO: react test utils
-    })
-  })
-
   xdescribe('setClock', () => {
 
   })
@@ -161,10 +145,6 @@ describe('-- state - client --', () => {
       console.log(document.body.classList)
       console.log(document.getElementById(DOM.turn))
     })
-  })
-
-  xdescribe('updateDeck', () => {
-
   })
 
   describe('reset', () => {

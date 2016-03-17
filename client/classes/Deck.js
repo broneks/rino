@@ -13,6 +13,8 @@ let instance = null
 
 export default class Deck {
   constructor (cardNames) {
+    internal(this).DOMdeck = document.getElementById(DOM.deck)
+
     this.setCards(cardNames)
 
     // singleton
@@ -44,7 +46,7 @@ export default class Deck {
       <DeckDisplay
         cards={internal(this).cards}
         cardClick={this.cardClick.bind(this)} />,
-      document.getElementById(DOM.deck)
+      internal(this).DOMdeck
     )
   }
 }

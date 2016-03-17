@@ -19,7 +19,7 @@ socket.on('event:player-connected', (opponent) => {
 })
 
 socket.on('event:player-disconnected', () => {
-  if (ENV.debug) console.log('event:player disconnected')
+  if (ENV.debug) console.log('event:player-disconnected')
 
   game.reset()
 })
