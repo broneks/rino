@@ -86,15 +86,22 @@ export default {
     if (!description || !player) return constants.NOOP
 
     return () => {
-      ReactRender(
-        <MoveDetailsDisplay
-          description={description}
-          player={player} />,
-        document.getElementById(DOM.moveDetails)
-      )
-
-      // TODO: socket.emit('state:move-details')
+      this.renderMoveDetails(description, player)
+      socket.emit('data:move-details', description, player)
     }
+  },
+
+  renderMoveDetails (description, player) {
+    if (!description || !player) return
+
+    let DOMmove = document.getElementById(DOM.moveDetails)
+
+    ReactRender(
+      <MoveDetailsDisplay
+        description={description}
+        player={player} />,
+      DOMmove
+    )
   },
 
   setClock (start) {

@@ -47,5 +47,16 @@ export default {
     settings.cardNames.evidence.pop()
 
     return settings.cardNames.evidence
+  },
+
+  storeMoveDetails (description, player) {
+    if (!settings) return
+
+    settings.moveDetails = {
+      description,
+      player
+    }
+
+    return settings.moveDetails
   }
 }

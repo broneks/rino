@@ -18,8 +18,13 @@ export default {
     state.setClock(settings.startTime)
     state.setTurn(settings.turn)
 
+    if (settings.moveDetails) {
+      state.renderMoveDetails(settings.moveDetails.description, settings.moveDetails.player)
+    }
+
     state.listen('state:next-turn', state.setTurn)
     state.listen('state:update-deck', state.updateDeck)
+    state.listen('data:move-details', state.renderMoveDetails)
 
     this.start()
   },

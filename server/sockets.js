@@ -47,5 +47,10 @@ export default (server) => {
       const updatedDeck = settings.updateDeck()
       if (updatedDeck) io.emit('state:update-deck', updatedDeck)
     })
+
+    socket.on('data:move-details', (description, player) => {
+      settings.storeMoveDetails(description, player)
+      socket.broadcast.emit('data:move-details', description, player)
+    })
   })
 }
