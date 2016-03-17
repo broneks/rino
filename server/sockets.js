@@ -1,7 +1,7 @@
 import socketIO from 'socket.io'
 
 import users from './users'
-import game from './game'
+import settings from './settings'
 
 export default (server) => {
   const io = socketIO(server)
@@ -20,9 +20,9 @@ export default (server) => {
           if (res.isNewUser) {
             socket.broadcast.emit('event:player-connected', user)
 
-            if (users.maxReached()) io.emit('data:game-init', game.init())
+            if (users.maxReached()) io.emit('data:game-init', settings.init())
           } else {
-            let gameSettings = game.getSettings()
+            let gameSettings = settings.get()
 
             if (gameSettings) io.to(socket.id).emit('data:game-init', gameSettings)
           }
@@ -34,17 +34,17 @@ export default (server) => {
         .then(() => {
           io.emit('event:player-disconnected')
           socket.disconnect()
-          game.reset()
+          settings.reset()
         })
     })
 
     socket.on('state:end-turn', () => {
-      const nextTurn = game.nextTurn()
+      const nextTurn = settings.nextTurn()
       if (nextTurn) io.emit('state:next-turn', nextTurn)
     })
 
     socket.on('state:card-picked-up', () => {
-      const updatedDeck = game.updateDeck()
+      const updatedDeck = settings.updateDeck()
       if (updatedDeck) io.emit('state:update-deck', updatedDeck)
     })
   })

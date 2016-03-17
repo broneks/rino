@@ -37,8 +37,8 @@ socket.on('data:get-opponent', (opponent) => {
   state.setOpponent(opponent)
 })
 
-socket.on('data:game-init', (gameSettings) => {
-  if (ENV.debug) console.log('data:game-init: \n\t', gameSettings)
+socket.on('data:game-init', (settings) => {
+  if (ENV.debug) console.log('data:game-init: \n\t', settings)
 
-  game.init(gameSettings)
+  game.init(settings)
 })

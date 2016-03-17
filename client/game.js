@@ -6,17 +6,17 @@ import Deck from './classes/Deck'
 export default {
   startClassName: 'game-on-good-luck',
 
-  init (gameSettings) {
-    if (!gameSettings ||
-        !gameSettings.startTime ||
-        !gameSettings.cardNames) {
+  init (settings) {
+    if (!settings ||
+        !settings.startTime ||
+        !settings.cardNames) {
       throw Error('Could not initialize game. Missing game settings.')
     }
 
-    state.setBoard(new Board(gameSettings.cardNames.suspect))
-    state.setDeck(new Deck(gameSettings.cardNames.evidence))
-    state.setClock(gameSettings.startTime)
-    state.setTurn(gameSettings.turn)
+    state.setBoard(new Board(settings.cardNames.suspect))
+    state.setDeck(new Deck(settings.cardNames.evidence))
+    state.setClock(settings.startTime)
+    state.setTurn(settings.turn)
 
     state.listen('state:next-turn', state.setTurn)
     state.listen('state:update-deck', state.updateDeck)

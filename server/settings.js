@@ -1,20 +1,20 @@
 import constants from '../shared/constants'
 import {shuffle} from '../shared/util'
 
-let gameSettings = null
+let settings = null
 
 export default {
-  getSettings () {
-    return gameSettings
+  get () {
+    return settings
   },
 
   reset () {
-    gameSettings = null
+    settings = null
   },
 
   init () {
-    if (!gameSettings) {
-      gameSettings = {
+    if (!settings) {
+      settings = {
         startTime: Date.now(),
         cardNames: {
           suspect: shuffle(constants.CARD_NAMES),
@@ -27,25 +27,25 @@ export default {
       }
     }
 
-    return gameSettings
+    return settings
   },
 
   nextTurn () {
-    if (!gameSettings) return
+    if (!settings) return
 
-    gameSettings.turn.number += 1
-    gameSettings.turn.player = gameSettings.turn.number % 2 === 0
+    settings.turn.number += 1
+    settings.turn.player = settings.turn.number % 2 === 0
       ? constants.PLAYER_TYPE.inspector
       : constants.PLAYER_TYPE.killer
 
-    return gameSettings.turn
+    return settings.turn
   },
 
   updateDeck () {
-    if (!gameSettings && gameSettings.cardNames.evidence.length) return
+    if (!settings && settings.cardNames.evidence.length) return
 
-    gameSettings.cardNames.evidence.pop()
+    settings.cardNames.evidence.pop()
 
-    return gameSettings.cardNames.evidence
+    return settings.cardNames.evidence
   }
 }
