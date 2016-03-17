@@ -25,7 +25,7 @@ module.exports = (config) => {
     webpackMiddleware: {
       noInfo: true
     },
-    autoWatch: true,
+    autoWatch: false,
     reporters: ['progress'],
     browsers: ['Chrome'],
     port: 9876,

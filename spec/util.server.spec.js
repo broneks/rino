@@ -1,6 +1,6 @@
 import util from '../shared/util'
 
-describe('-- util - shared --', () => {
+describe('-- util - server --', () => {
   describe('shuffle', () => {
     let original
 

@@ -122,11 +122,11 @@ describe('-- users - server --', () => {
     })
 
     it('should return null', () => {
-      expect(users.getBySessionId()).toBe(null)
+      expect(users.getBySessionId()).toBeNull()
 
       users.add(123, 1)
 
-      expect(users.getBySessionId(2)).toBe(null)
+      expect(users.getBySessionId(2)).toBeNull()
     })
   })
 
@@ -140,11 +140,11 @@ describe('-- users - server --', () => {
     })
 
     it('should return null', () => {
-      expect(users.getOpponent()).toBe(null)
+      expect(users.getOpponent()).toBeNull()
 
       users.add(123, 1)
 
-      expect(users.getOpponent()).toBe(null)
+      expect(users.getOpponent()).toBeNull()
     })
   })
 

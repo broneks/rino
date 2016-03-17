@@ -1,4 +1,6 @@
-import React from 'react'
+
+
+// TODO: socket.emit('state:move-details')import React from 'react'
 import {render as ReactRender} from 'react-dom'
 
 import util from '../shared/util'
@@ -48,7 +50,11 @@ export default {
   },
 
   setPlayer (playerType, Killer, Inspector) {
-    if (state.player) return
+    if (state.player) {
+      return
+    } else if (!Killer || !Inspector) {
+      throw Error('Could not create player. Constructor was not provided.')
+    }
 
     switch (playerType) {
       case constants.PLAYER_TYPE.killer:
@@ -78,10 +84,8 @@ export default {
     state.opponent = opponent
   },
 
-  setMoveDetails (description) {
-    if (!description) return constants.NOOP
-
-    let player = state.turn.player
+  setMoveDetails (description, player = state.turn.player) {
+    if (!description || !player) return constants.NOOP
 
     return () => {
       ReactRender(
@@ -90,6 +94,8 @@ export default {
           player={player} />,
         document.getElementById(DOM.moveDetails)
       )
+
+      // TODO: socket.emit('state:move-details')
     }
   },
 
@@ -167,6 +173,10 @@ export default {
 
   getTurn () {
     return state.turn
+  },
+
+  _getState () {
+    return state
   },
 
   _setState (newState) {
