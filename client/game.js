@@ -10,7 +10,7 @@ export default {
     if (!gameSettings ||
         !gameSettings.startTime ||
         !gameSettings.cardNames) {
-      throw Error('could not initialize game. Missing game settings.')
+      throw Error('Could not initialize game. Missing game settings.')
     }
 
     state.setBoard(new Board(gameSettings.cardNames.suspect))

@@ -1,6 +1,4 @@
-
-
-// TODO: socket.emit('state:move-details')import React from 'react'
+import React from 'react'
 import {render as ReactRender} from 'react-dom'
 
 import util from '../shared/util'
