@@ -48,6 +48,11 @@ export default (server) => {
       if (updatedDeck) io.emit('state:update-deck', updatedDeck)
     })
 
+    socket.on('state:update-board', (cards) => {
+      settings.updateBoard(cards)
+      socket.broadcast.emit('state:update-board', cards)
+    })
+
     socket.on('data:move-details', (description, player) => {
       settings.storeMoveDetails(description, player)
       socket.broadcast.emit('data:move-details', description, player)

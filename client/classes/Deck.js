@@ -12,18 +12,18 @@ let internal = privateMap()
 let instance = null
 
 export default class Deck {
-  constructor (cardNames) {
+  constructor (cards) {
     internal(this).DOMdeck = document.getElementById(DOM.deck)
 
-    this.setCards(cardNames)
+    this.setCards(cards)
 
     // singleton
     if (!instance) instance = this
     return instance
   }
 
-  setCards (cardNames) {
-    internal(this).cards = cardNames.map(name => new EvidenceCard(name))
+  setCards (cards) {
+    internal(this).cards = cards.map(name => new EvidenceCard(name))
 
     this.render()
   }

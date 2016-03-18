@@ -35,6 +35,10 @@ export default {
     socket.emit('state:card-picked-up')
   },
 
+  boardChanged (cards) {
+    socket.emit('state:update-board', cards)
+  },
+
   isPlayersTurn () {
     return state.turn.player === state.playerType
   },
@@ -137,8 +141,12 @@ export default {
     }
   },
 
-  updateDeck (cardNames) {
-    state.cards.deck.setCards(cardNames)
+  updateDeck (cards) {
+    state.cards.deck.setCards(cards)
+  },
+
+  updateBoard (cards) {
+    state.cards.board.setCards(cards)
   },
 
   reset () {

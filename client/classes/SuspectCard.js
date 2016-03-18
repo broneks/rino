@@ -6,12 +6,12 @@ import Card from './base/Card'
 let internal = privateMap()
 
 export default class SuspectCard extends Card {
-  constructor (name) {
+  constructor (name, isArrested, isDeceased, isExonerated) {
     super(CARD_TYPE.suspect, name)
 
-    internal(this).isDeceased = false
-    internal(this).isExonerated = false
-    internal(this).isArrested = false
+    internal(this).isArrested = isArrested
+    internal(this).isDeceased = isDeceased
+    internal(this).isExonerated = isExonerated
   }
 
   isExonerated () {
@@ -44,5 +44,14 @@ export default class SuspectCard extends Card {
 
   setOutOfPlay () {
     super.setOutOfPlay()
+  }
+
+  getProperties () {
+    return {
+      name: this.getName(),
+      isArrested: internal(this).isArrested,
+      isDeceased: internal(this).isDeceased,
+      isExonerated: internal(this).isExonerated
+    }
   }
 }

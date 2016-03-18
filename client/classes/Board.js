@@ -1,7 +1,7 @@
 import React from 'react'
 import {render as ReactRender} from 'react-dom'
 
-import {privateMap, chunk} from '../../shared/util'
+import {privateMap} from '../../shared/util'
 import {PLAYER_TYPE} from '../../shared/constants'
 import DOM from '../DOM'
 import state from '../state'
@@ -14,17 +14,24 @@ let moveDetails = null
 let instance = null
 
 export default class Board {
-  constructor (cardNames) {
-    internal(this).cards = chunk(cardNames, 5).map(row => {
-      return row.map(name => new SuspectCard(name))
-    })
+  constructor (cards) {
     internal(this).DOMboard = document.getElementById(DOM.board)
 
-    this.render()
+    this.setCards(cards)
 
     // singleton
     if (!instance) instance = this
     return instance
+  }
+
+  setCards (cards) {
+    internal(this).cards = cards.map(row => {
+      return row.map(details => {
+        return new SuspectCard(details.name, details.isArrested, details.isDeceased, details.isExonerated)
+      })
+    })
+
+    this.render()
   }
 
   onSuspectClick (event) {
@@ -141,6 +148,15 @@ export default class Board {
     })
 
     this.render()
+    this.postRender()
+  }
+
+  postRender () {
+    if (moveDetails) moveDetails()
+
+    state.boardChanged(internal(this).cards.map(row => {
+      return row.map(card => card.getProperties())
+    }))
     state.endTurn()
   }
 
@@ -152,7 +168,5 @@ export default class Board {
         onArrowClick={this.onArrowClick.bind(this)} />,
       internal(this).DOMboard
     )
-
-    if (moveDetails) moveDetails()
   }
 }

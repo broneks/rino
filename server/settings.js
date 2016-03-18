@@ -1,5 +1,5 @@
 import constants from '../shared/constants'
-import {shuffle} from '../shared/util'
+import {shuffle, chunk} from '../shared/util'
 
 let settings = null
 
@@ -14,10 +14,19 @@ export default {
 
   init () {
     if (!settings) {
+      let suspectCards = shuffle(constants.CARD_NAMES).map((name) => {
+        return {
+          name,
+          isArrested: false,
+          isDeceased: false,
+          isExonerated: false
+        }
+      })
+
       settings = {
         startTime: Date.now(),
-        cardNames: {
-          suspect: shuffle(constants.CARD_NAMES),
+        cards: {
+          suspect: chunk(suspectCards, 5),
           evidence: shuffle(constants.CARD_NAMES)
         },
         turn: {
@@ -42,11 +51,19 @@ export default {
   },
 
   updateDeck () {
-    if (!settings && settings.cardNames.evidence.length) return
+    if (!settings) return
 
-    settings.cardNames.evidence.pop()
+    settings.cards.evidence.pop()
 
-    return settings.cardNames.evidence
+    return settings.cards.evidence
+  },
+
+  updateBoard (cards) {
+    if (!settings) return
+
+    settings.cards.suspect = cards
+
+    return settings.cards.suspect
   },
 
   storeMoveDetails (description, player) {
