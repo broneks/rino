@@ -24,7 +24,7 @@ export default {
       })
 
       settings = {
-        startTime: Date.now(),
+        timestamp: Date.now(),
         cards: {
           suspect: chunk(suspectCards, 5),
           evidence: shuffle(constants.CARD_NAMES)

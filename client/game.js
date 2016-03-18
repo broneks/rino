@@ -8,14 +8,14 @@ export default {
 
   init (settings) {
     if (!settings ||
-        !settings.startTime ||
+        !settings.timestamp ||
         !settings.cards) {
       throw Error('Could not initialize game. Missing game settings.')
     }
 
     state.setBoard(new Board(settings.cards.suspect))
     state.setDeck(new Deck(settings.cards.evidence))
-    state.setClock(settings.startTime)
+    state.setClock(settings.timestamp)
     state.setTurn(settings.turn)
 
     if (settings.moveDetails) {

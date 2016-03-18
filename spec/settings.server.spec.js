@@ -10,7 +10,7 @@ describe('-- settings - server --', () => {
       let gameSettings = settings.get()
 
       expect(gameSettings).toEqual(jasmine.any(Object))
-      expect(gameSettings.startTime).toEqual(jasmine.any(Number))
+      expect(gameSettings.timestamp).toEqual(jasmine.any(Number))
       expect(gameSettings.cards.suspect).toEqual(jasmine.any(Array))
       expect(gameSettings.cards.evidence).toEqual(jasmine.any(Array))
       expect(gameSettings.turn.number).toEqual(1)
