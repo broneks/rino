@@ -1,3 +1,7 @@
+* {
+  box-sizing: border-box;
+}
+
 html,
 body,
 #game {
@@ -18,7 +22,7 @@ body,
 
 #side {
   width: $side-width;
-  background: gray;
+  background: #e2e2e2;
 }
 
 #idle-overlay {

@@ -1,6 +1,12 @@
 .suspect-card {
   background-color: $board-card-color;
 
+  &.exonerated,
+  &.arrested,
+  &.deceased {
+    color: #fff;
+  }
+
   &.exonerated {
     background-color: $board-card-exonerated-color;
   }
