@@ -24,12 +24,6 @@ export default {
       : null
   },
 
-  getOpponent (sessionId) {
-    if (!this.maxReached()) return null
-
-    return users.filter(user => user.sessionId !== sessionId)[0]
-  },
-
   add (id, sessionId) {
     let user
     let playerType
@@ -45,6 +39,7 @@ export default {
       id,
       sessionId,
       playerType,
+      hand: [],
       disconnected: false,
       removed: false
     }
@@ -103,6 +98,12 @@ export default {
         users.splice(index, 1)
       }
     })
+  },
+
+  addCardToHand (user, card) {
+    if (!user || !card) return
+
+    user.hand.push(card)
   },
 
   _setUsers (newUsers) {

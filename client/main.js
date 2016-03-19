@@ -12,10 +12,8 @@ window.sessionStorage.setItem('rinoUID', sessionId)
 
 socket.emit('event:join', sessionId)
 
-socket.on('event:player-connected', (opponent) => {
-  if (ENV.debug) console.log('event:player-connected: \n\t', opponent)
-
-  state.setOpponent(opponent)
+socket.on('event:player-connected', () => {
+  if (ENV.debug) console.log('event:player-connected: \n\t')
 })
 
 socket.on('event:player-disconnected', () => {
@@ -29,12 +27,6 @@ socket.on('data:get-user', (user) => {
 
   state.setUser(user)
   state.setPlayer(user.playerType, Killer, Inspector)
-})
-
-socket.on('data:get-opponent', (opponent) => {
-  if (ENV.debug) console.log('data:get-opponent: \n\t', opponent)
-
-  state.setOpponent(opponent)
 })
 
 socket.on('data:game-init', (settings) => {

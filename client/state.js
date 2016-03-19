@@ -12,7 +12,6 @@ const socket = io()
 
 let state = {
   user: null,
-  opponent: null,
   player: null,
   playerType: null,
   clockInterval: null,
@@ -80,10 +79,10 @@ export default {
     state.user = user
   },
 
-  setOpponent (opponent) {
-    if (state.opponent) return
+  setHand (hand) {
+    if (!state.player) return
 
-    state.opponent = opponent
+    state.player.setHand(hand)
   },
 
   setMoveDetails (description, player = state.turn.player) {
@@ -136,28 +135,31 @@ export default {
       DOMturn.textContent = ''
     }
 
-    if (ENV.debug) {
-      console.log(`turn: ${ state.turn.number } - ${ state.turn.player } - ${ this.isPlayersTurn() }`)
-    }
+    if (ENV.debug) console.log(`turn: ${ state.turn.number } - ${ state.turn.player } - ${ this.isPlayersTurn() }`)
   },
 
   updateDeck (cards) {
     state.cards.deck.setCards(cards)
+
+    if (ENV.debug) console.log('deck updated')
   },
 
   updateBoard (cards) {
     state.cards.board.setCards(cards)
+
+    if (ENV.debug) console.log('board updated')
   },
 
   reset () {
     window.clearInterval(state.clockInterval)
-    state.opponent = null
     state.cards = {}
     state.turn = {}
 
     Object.keys(DOM).forEach((key) => {
       util.removeChildren(document.getElementById(DOM[key]))
     })
+
+    if (ENV.debug) console.log('game reset')
   },
 
   getBoard () {
@@ -178,10 +180,6 @@ export default {
 
   getUser () {
     return state.user
-  },
-
-  getOpponent () {
-    return state.opponent
   },
 
   getTurn () {

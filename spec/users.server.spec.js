@@ -130,24 +130,6 @@ describe('-- users - server --', () => {
     })
   })
 
-  describe('getOpponent', () => {
-    it('should return the opponent player object', () => {
-      let sessionId = 1
-      let player = users.add(123, sessionId)
-      let opponent = users.add(234, 2)
-
-      expect(users.getOpponent(sessionId)).toEqual(opponent)
-    })
-
-    it('should return null', () => {
-      expect(users.getOpponent()).toBeNull()
-
-      users.add(123, 1)
-
-      expect(users.getOpponent()).toBeNull()
-    })
-  })
-
   describe('join', () => {
     let user
     let user2

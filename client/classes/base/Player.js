@@ -26,6 +26,10 @@ export default class Player {
     internal(this).hand.addCard(evidenceCard)
   }
 
+  setHand (hand) {
+    internal(this).hand.setHand(hand)
+  }
+
   setIdentityCard (evidenceCard) {
     let previousIdentity = this.getIdentityCard()
 

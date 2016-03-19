@@ -15,7 +15,6 @@ describe('-- state - client --', () => {
   beforeEach(() => {
     stateObj = {
       user: null,
-      opponent: null,
       player: null,
       playerType: null,
       clockInterval: null,
@@ -112,16 +111,6 @@ describe('-- state - client --', () => {
     })
   })
 
-  describe('setOpponent', () => {
-    it('should set the opponent', () => {
-      let opponent = {name: 'opponent'}
-
-      state.setOpponent(opponent)
-
-      expect(state.getOpponent()).toBe(opponent)
-    })
-  })
-
   xdescribe('setClock', () => {
 
   })
@@ -148,8 +137,7 @@ describe('-- state - client --', () => {
   })
 
   describe('reset', () => {
-    it('should reset opponent, cards and turn state', () => {
-      stateObj.opponent = {name: 'opponent'}
+    it('should reset cards and turn', () => {
       stateObj.cards = {suspect: 1, evidence: 2}
       stateObj.turn = {number: 1, playerType: PLAYER_TYPE.killer}
       state._setState(stateObj)
@@ -158,7 +146,6 @@ describe('-- state - client --', () => {
 
       let resetState = state._getState()
 
-      expect(resetState.opponent).toBeNull()
       expect(resetState.cards).toEqual({})
       expect(resetState.turn).toEqual({})
     })

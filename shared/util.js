@@ -4,16 +4,13 @@ export function shuffle (array) {
   let shuffled = array.slice()
   let currentIndex = array.length
   let randomIndex
-  let temp
 
   while (currentIndex) {
     randomIndex = Math.floor(Math.random() * currentIndex)
     currentIndex -= 1
 
     // swap values
-    temp = shuffled[currentIndex]
-    shuffled[currentIndex] = shuffled[randomIndex]
-    shuffled[randomIndex] = temp
+    ;[array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]]
   }
 
   return shuffled
