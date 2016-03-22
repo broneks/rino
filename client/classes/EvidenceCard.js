@@ -13,6 +13,14 @@ export default class EvidenceCard extends Card {
     internal(this).isIdentity = false
   }
 
+  getProperties () {
+    return {
+      name: this.getName(),
+      isInHand: internal(this).isInHand,
+      isIdentity: internal(this).isIdentity
+    }
+  }
+
   pickUp (player) {
     internal(this).isInHand = player.getType()
 

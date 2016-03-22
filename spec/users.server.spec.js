@@ -57,6 +57,7 @@ describe('-- users - server --', () => {
         sessionId,
         id: 123,
         playerType: PLAYER_TYPE.killer,
+        hand: [],
         disconnected: false,
         removed: false
       }
@@ -112,6 +113,7 @@ describe('-- users - server --', () => {
         id,
         sessionId,
         playerType: PLAYER_TYPE.killer,
+        hand: [],
         disconnected: false,
         removed: false
       }

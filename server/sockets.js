@@ -6,9 +6,9 @@ import settings from './settings'
 export default (server) => {
   const io = socketIO(server)
 
-  let user = null
-
   io.on('connection', (socket) => {
+    let user = null
+
     socket.on('event:join', (sessionId) => {
       users.join(socket.id, sessionId)
         .then((res) => {
@@ -44,9 +44,9 @@ export default (server) => {
 
     socket.on('state:card-picked-up', () => {
       const [updatedDeck, cardPickedUp] = settings.updateDeck()
+
       if (updatedDeck) {
-        users.addCardToHand(user, cardPickedUp)
-        io.emit('state:update-deck', updatedDeck)
+        socket.broadcast.emit('state:update-deck', updatedDeck)
       }
     })
 
@@ -58,6 +58,11 @@ export default (server) => {
     socket.on('data:move-details', (description, player) => {
       settings.storeMoveDetails(description, player)
       socket.broadcast.emit('data:move-details', description, player)
+    })
+
+    socket.on('data:store-hand', (sessionId, hand) => {
+      const user = users.getBySessionId(sessionId)
+      users.storeHand(user, hand)
     })
   })
 }

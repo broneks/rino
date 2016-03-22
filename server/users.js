@@ -100,10 +100,10 @@ export default {
     })
   },
 
-  addCardToHand (user, card) {
-    if (!user || !card) return
+  storeHand (user, hand) {
+    if (!user || !hand) return
 
-    user.hand.push(card)
+    user.hand = hand
   },
 
   _setUsers (newUsers) {

@@ -14,6 +14,15 @@ export default class SuspectCard extends Card {
     internal(this).isExonerated = isExonerated
   }
 
+  getProperties () {
+    return {
+      name: this.getName(),
+      isArrested: internal(this).isArrested,
+      isDeceased: internal(this).isDeceased,
+      isExonerated: internal(this).isExonerated
+    }
+  }
+
   isExonerated () {
     return internal(this).isExonerated
   }
@@ -44,14 +53,5 @@ export default class SuspectCard extends Card {
 
   setOutOfPlay () {
     super.setOutOfPlay()
-  }
-
-  getProperties () {
-    return {
-      name: this.getName(),
-      isArrested: internal(this).isArrested,
-      isDeceased: internal(this).isDeceased,
-      isExonerated: internal(this).isExonerated
-    }
   }
 }

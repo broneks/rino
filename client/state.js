@@ -38,6 +38,10 @@ export default {
     socket.emit('state:update-board', cards)
   },
 
+  storeHand (hand) {
+    socket.emit('data:store-hand', state.user.sessionId, hand)
+  },
+
   isPlayersTurn () {
     return state.turn.player === state.playerType
   },

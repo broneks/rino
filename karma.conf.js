@@ -17,6 +17,7 @@ module.exports = (config) => {
       module: webpackConfig.module,
       plugins: [
         new webpack.DefinePlugin({
+          ENV: {},
           io: () => {}
         })
       ],

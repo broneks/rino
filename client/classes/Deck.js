@@ -36,9 +36,13 @@ export default class Deck {
     let card = internal(this).cards.pop()
 
     player.pickUp(card)
-    state.cardPickedUp()
 
     this.render()
+    this.postRender()
+  }
+
+  postRender () {
+    state.cardPickedUp()
   }
 
   render () {
