@@ -5,8 +5,8 @@ import Player from './base/Player'
 let instance = null
 
 export default class Killer extends Player {
-  constructor () {
-    super(PLAYER_TYPE.killer, 1)
+  constructor (hand) {
+    super(PLAYER_TYPE.killer, 1, hand)
 
     // singleton
     if (!instance) instance = this

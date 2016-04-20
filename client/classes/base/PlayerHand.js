@@ -5,22 +5,23 @@ import {privateMap} from '../../../shared/util'
 import DOM from '../../DOM'
 import state from '../../state'
 
+import EvidenceCard from '../EvidenceCard'
 import HandDisplay from '../../components/HandDisplay'
 
 let internal = privateMap()
 
 export default class PlayerHand {
-  constructor (maxCards) {
+  constructor (maxCards, hand = []) {
     internal(this).maxCards = maxCards
     internal(this).DOMhand = document.getElementById(DOM.hand)
 
-    this.setHand([])
+    this.setHand(hand)
 
     this.render()
   }
 
   setHand (hand) {
-    internal(this).hand = hand
+    internal(this).hand = hand.map(obj => new EvidenceCard(obj.name, obj.isInHand, obj.isIdentity))
   }
 
   canPickUp () {

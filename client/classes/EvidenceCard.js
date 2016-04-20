@@ -6,11 +6,11 @@ import Card from './base/Card'
 let internal = privateMap()
 
 export default class EvidenceCard extends Card {
-  constructor (name) {
+  constructor (name, isInHand = false, isIdentity = false) {
     super(CARD_TYPE.evidence, name)
 
-    internal(this).isInHand = false
-    internal(this).isIdentity = false
+    internal(this).isInHand = isInHand
+    internal(this).isIdentity = isIdentity
   }
 
   getProperties () {
@@ -18,15 +18,6 @@ export default class EvidenceCard extends Card {
       name: this.getName(),
       isInHand: internal(this).isInHand,
       isIdentity: internal(this).isIdentity
-    }
-  }
-
-  pickUp (player) {
-    internal(this).isInHand = player.getType()
-
-    if (player.getType() === PLAYER_TYPE.killer) {
-      internal(this).isIdentity = true
-      player.setIdentityCard(this)
     }
   }
 
@@ -41,5 +32,14 @@ export default class EvidenceCard extends Card {
     internal(this).isInHand = false
     internal(this).isIdentity = false
     super.setOutOfPlay()
+  }
+
+  setInHand (playerType = false) {
+    internal(this).isInHand = playerType
+
+    // if (player.getType() === PLAYER_TYPE.killer) {
+    //   internal(this).isIdentity = true
+    //   player.setIdentityCard(this)
+    // }
   }
 }

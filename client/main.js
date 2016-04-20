@@ -26,7 +26,7 @@ socket.on('data:get-user', (user) => {
   if (ENV.debug) console.log('data:get-user: \n\t', user)
 
   state.setUser(user)
-  state.setPlayer(user.playerType, Killer, Inspector)
+  state.setPlayer(user.playerType, user.hand, Killer, Inspector)
 })
 
 socket.on('data:game-init', (settings) => {

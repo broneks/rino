@@ -76,25 +76,25 @@ describe('-- state - client --', () => {
 
   describe('setPlayer', () => {
     it('should set player as killer', () => {
-      state.setPlayer(PLAYER_TYPE.killer, Killer, Inspector)
+      state.setPlayer(PLAYER_TYPE.killer, [], Killer, Inspector)
 
       expect(state.getPlayer().constructor).toBe(Killer)
       expect(state.getPlayerType()).toEqual(PLAYER_TYPE.killer)
     })
 
     it('should set player as inspector', () => {
-      state.setPlayer(PLAYER_TYPE.inspector, Killer, Inspector)
+      state.setPlayer(PLAYER_TYPE.inspector, [], Killer, Inspector)
 
       expect(state.getPlayer().constructor).toBe(Inspector)
       expect(state.getPlayerType()).toEqual(PLAYER_TYPE.inspector)
     })
 
     it('should throw an error because invalid player type was passed in', () => {
-      expect(state.setPlayer.bind(null, 'postman', Killer, Inspector)).toThrowError(/Could not create player/)
+      expect(state.setPlayer.bind(null, 'postman', [], Killer, Inspector)).toThrowError(/Could not create player/)
     })
 
     it('should throw an error because player constructor was not provided', () => {
-      expect(state.setPlayer.bind(null, PLAYER_TYPE.killer, Killer)).toThrowError(/Could not create player/)
+      expect(state.setPlayer.bind(null, PLAYER_TYPE.killer, [], Killer)).toThrowError(/Could not create player/)
     })
   })
 

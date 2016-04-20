@@ -54,7 +54,7 @@ export default {
     state.cards.deck = newDeck
   },
 
-  setPlayer (playerType, Killer, Inspector) {
+  setPlayer (playerType, hand, Killer, Inspector) {
     if (state.player) {
       return
     } else if (!Killer || !Inspector) {
@@ -63,11 +63,11 @@ export default {
 
     switch (playerType) {
       case constants.PLAYER_TYPE.killer:
-        state.player = new Killer()
+        state.player = new Killer(hand)
         state.playerType = playerType
         break
       case constants.PLAYER_TYPE.inspector:
-        state.player = new Inspector()
+        state.player = new Inspector(hand)
         state.playerType = playerType
         break
       default:

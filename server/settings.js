@@ -53,12 +53,9 @@ export default {
   updateDeck () {
     if (!settings) return
 
-    const cardPickedUp = settings.cards.evidence.pop()
+    settings.cards.evidence.pop()
 
-    return [
-      settings.cards.evidence,
-      cardPickedUp
-    ]
+    return settings.cards.evidence
   },
 
   updateBoard (cards) {

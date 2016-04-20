@@ -43,7 +43,7 @@ export default (server) => {
     })
 
     socket.on('state:card-picked-up', () => {
-      const [updatedDeck, cardPickedUp] = settings.updateDeck()
+      const updatedDeck = settings.updateDeck()
 
       if (updatedDeck) {
         socket.broadcast.emit('state:update-deck', updatedDeck)

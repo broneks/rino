@@ -4,10 +4,10 @@ import PlayerHand from './PlayerHand'
 let internal = privateMap()
 
 export default class Player {
-  constructor (type, handMax) {
+  constructor (type, handMax, hand) {
     internal(this).type = type
     internal(this).identityCard = null
-    internal(this).hand = new PlayerHand(handMax)
+    internal(this).hand = new PlayerHand(handMax, hand)
   }
 
   getType () {
@@ -24,6 +24,7 @@ export default class Player {
 
   pickUp (evidenceCard) {
     internal(this).hand.addCard(evidenceCard)
+    evidenceCard.setInHand(this.getType())
   }
 
   setHand (hand) {
