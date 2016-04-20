@@ -11,16 +11,16 @@ export default {
   },
 
   exists (sessionId) {
-    return !!users.length && users.map(user => user.sessionId).indexOf(sessionId) > -1
+    return !!users.length && users.map((user) => user.sessionId).indexOf(sessionId) > -1
   },
 
   killerIsAssigned () {
-    return users.length && (users.map(user => user.playerType).indexOf('killer') > -1)
+    return users.length && (users.map((user) => user.playerType).indexOf('killer') > -1)
   },
 
   getBySessionId (sessionId) {
     return users.length
-      ? users.filter(user => user.sessionId === sessionId)[0] || null
+      ? users.filter((user) => user.sessionId === sessionId)[0] || null
       : null
   },
 

@@ -12,7 +12,7 @@ const server = createServer(app)
 const appDir = join(dirname(require.main.filename), '../app')
 
 app.set('views', join(appDir, 'views'))
-app.set('view engine', 'jade')
+app.set('view engine', 'pug')
 app.use(express.static(join(appDir, 'public')))
 app.use(favicon(join(appDir, 'public/img/favicon.ico')))
 

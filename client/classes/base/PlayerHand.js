@@ -21,7 +21,7 @@ export default class PlayerHand {
   }
 
   setHand (hand) {
-    internal(this).hand = hand.map(obj => new EvidenceCard(obj.name, obj.isInHand, obj.isIdentity))
+    internal(this).hand = hand.map((obj) => new EvidenceCard(obj.name, obj.isInHand, obj.isIdentity))
   }
 
   canPickUp () {
@@ -37,7 +37,7 @@ export default class PlayerHand {
   }
 
   postRender () {
-    state.storeHand(internal(this).hand.map(card => card.getProperties()))
+    state.storeHand(internal(this).hand.map((card) => card.getProperties()))
   }
 
   render () {

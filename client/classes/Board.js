@@ -25,8 +25,8 @@ export default class Board {
   }
 
   setCards (cards) {
-    internal(this).cards = cards.map(row => {
-      return row.map(details => {
+    internal(this).cards = cards.map((row) => {
+      return row.map((details) => {
         return new SuspectCard(details.name, details.isArrested, details.isDeceased, details.isExonerated)
       })
     })
@@ -52,7 +52,7 @@ export default class Board {
     switch (player.getType()) {
       case PLAYER_TYPE.killer:
         player.kill(card)
-        moveDetails = state.setMoveDetails(`killed ${ cardName }`)
+        moveDetails = state.setMoveDetails(`killed ${cardName}`)
         break
 
       case PLAYER_TYPE.inspector:
@@ -61,7 +61,7 @@ export default class Board {
         if (card.isExonerated()) return
 
         player.arrest(card)
-        moveDetails = state.setMoveDetails(`arrested ${ cardName }`)
+        moveDetails = state.setMoveDetails(`arrested ${cardName}`)
         break
     }
 
@@ -79,10 +79,10 @@ export default class Board {
 
     if (row) {
       this.shiftRow(row, direction)
-      moveDetails = state.setMoveDetails(`shifted row ${ parseInt(row, 10) + 1 } ${ direction }`)
+      moveDetails = state.setMoveDetails(`shifted row ${parseInt(row, 10) + 1} ${direction}`)
     } else if (column) {
       this.shiftColumn(column, direction)
-      moveDetails = state.setMoveDetails(`shifted column ${ parseInt(column, 10) + 1 } ${ direction }`)
+      moveDetails = state.setMoveDetails(`shifted column ${parseInt(column, 10) + 1} ${direction}`)
     }
 
     this.preRender()
@@ -127,7 +127,7 @@ export default class Board {
   preRender () {
     // remove row if every suspect is deceased
     internal(this).cards.some((row, rowIndex) => {
-      let rowIsDeceased = row.every(suspect => suspect.isDeceased())
+      let rowIsDeceased = row.every((suspect) => suspect.isDeceased())
 
       if (rowIsDeceased) {
         internal(this).cards.splice(rowIndex, 1)
@@ -138,10 +138,10 @@ export default class Board {
 
     // remove column if every suspect is deceased
     internal(this).cards[0].some((card, cardIndex) => {
-      let columnIsDeceased = internal(this).cards.every(row => row[cardIndex].isDeceased())
+      let columnIsDeceased = internal(this).cards.every((row) => row[cardIndex].isDeceased())
 
       if (columnIsDeceased) {
-        internal(this).cards.forEach(card => card.splice(cardIndex, 1))
+        internal(this).cards.forEach((card) => card.splice(cardIndex, 1))
       }
 
       return columnIsDeceased
@@ -154,8 +154,8 @@ export default class Board {
   postRender () {
     if (moveDetails) moveDetails()
 
-    state.boardChanged(internal(this).cards.map(row => {
-      return row.map(card => card.getProperties())
+    state.boardChanged(internal(this).cards.map((row) => {
+      return row.map((card) => card.getProperties())
     }))
     state.endTurn()
   }

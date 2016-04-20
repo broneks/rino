@@ -22,8 +22,8 @@ export default class SuspectCardDisplay extends Component {
     let rotation = Math.floor(Math.random() * (3 - 0.5) + 0.5)
 
     let style = {
-      width: `${ this.props.width }%`,
-      transform: `rotate(${ rotateDirection }${ rotation }deg)`
+      width: `${this.props.width}%`,
+      transform: `rotate(${rotateDirection}${rotation}deg)`
     }
 
     let classNames = 'suspect-card card ' + cardName.toLowerCase()

@@ -23,7 +23,7 @@ export default class Deck {
   }
 
   setCards (cards) {
-    internal(this).cards = cards.map(name => new EvidenceCard(name))
+    internal(this).cards = cards.map((name) => new EvidenceCard(name))
 
     this.render()
   }

@@ -78,7 +78,7 @@ export default {
   setUser (user) {
     if (state.user) return
 
-    document.body.classList.add(`is-${ user.playerType }`)
+    document.body.classList.add(`is-${user.playerType}`)
 
     state.user = user
   },
@@ -139,7 +139,7 @@ export default {
       DOMturn.textContent = ''
     }
 
-    if (ENV.debug) console.log(`turn: ${ state.turn.number } - ${ state.turn.player } - ${ this.isPlayersTurn() }`)
+    if (ENV.debug) console.log(`turn: ${state.turn.number} - ${state.turn.player} - ${this.isPlayersTurn()}`)
   },
 
   updateDeck (cards) {

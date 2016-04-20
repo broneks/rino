@@ -57,7 +57,7 @@ export function removeChildren (node) {
 }
 
 export function formatTime (...time) {
-  return time.map(num => (num < 10 ? '0' : '') + num.toString())
+  return time.map((num) => (num < 10 ? '0' : '') + num.toString())
 }
 
 //

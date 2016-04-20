@@ -1,13 +1,9 @@
 import React, {Component, PropTypes} from 'react'
 
 export default class BoardArrowDisplay extends Component {
-  constructor (props) {
-    super(props)
-  }
-
   render () {
     let rowOrColumn = {}
-    let classNames = `board-arrow ${ this.props.direction }-arrow`
+    let classNames = `board-arrow ${this.props.direction}-arrow`
 
     if (this.props.row >= 0) {
       rowOrColumn['data-row'] = this.props.row
